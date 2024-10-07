@@ -40,9 +40,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Density: 10
-    - _Noise: 5
-    - _Power: 8
+    - _Density: 40
+    - _Noise: 6
+    - _Power: 10
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Speed: 6
