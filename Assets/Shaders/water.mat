@@ -48,9 +48,9 @@ Material:
     - _Speed: 6
     - _SpeedOlas: 0.05
     m_Colors:
-    - _ColorOla: {r: 0.27058816, g: 0.5921568, b: 1, a: 0}
+    - _ColorOla: {r: 0.3679244, g: 0.5446335, b: 1, a: 0}
     - _Tiling: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _waterColor: {r: 0.16660735, g: 0.38291544, b: 0.9056604, a: 0}
+    - _waterColor: {r: 0.007843138, g: 0.16078432, b: 0.4862745, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2666668044376987286
 MonoBehaviour:
