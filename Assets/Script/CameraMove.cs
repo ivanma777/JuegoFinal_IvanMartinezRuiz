@@ -1,58 +1,92 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraMove : MonoBehaviour
 {
     [SerializeField] private float viewRadius;
     [SerializeField] private float viewAngle;
+    [SerializeField] private float maxDistance;
 
-    [SerializeField] private LayerMask targetMask;
-    [SerializeField] LayerMask obstacleMask;
+    private Transform interactuablePlayer;
 
-    [SerializeField] private Vector3 position;
+    [SerializeField] Transform Spawnpoint;
 
-    public List<Transform> visibleTargets = new List<Transform>();
+    private Animator anim;
+    //[SerializeField] private LayerMask targetMask;
+    //[SerializeField] LayerMask obstacleMask;
+
+    //[SerializeField] private Vector3 position;
+
+    //public List<Transform> visibleTargets = new List<Transform>();
 
     private void Start()
     {
-        StartCoroutine("FindTargetsWithDeLay", 0.2f);
+        //    StartCoroutine("FindTargetsWithDeLay", 0.2f);
+        anim = GetComponent<Animator>();
     }
 
     //IEnumerator FindTargetsWithDelay(float delay)
     //{
     //    while (true)
     //    {
-    //        yield return new WaitForSeconds (delay);
+    //        yield return new WaitForSeconds(delay);
+    //        FindVisibleTargets();
 
     //    }
 
     //}
 
-    void FindVisibleTargets()
+    //void FindVisibleTargets()
+    //{
+    //    visibleTargets.Clear();
+    //    Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
+
+    //    for (int i = 0; i < targetsInViewRadius.Length; i++)
+    //    {
+    //        Transform target = targetsInViewRadius[i].transform;
+    //        Vector3 dirToTarget = (target.position - transform.position).normalized;
+    //        if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+    //        {
+    //            float disToTarget = Vector3.Distance(transform.position, target.position);
+
+    //            if (!Physics.Raycast(transform.position, dirToTarget, disToTarget, obstacleMask)){ 
+    //            visibleTargets.Add(target);
+    //            }
+
+
+    //        }      
+    //    }
+
+
+
+
+    //}
+
+
+
+    private void Update()
     {
-        visibleTargets.Clear();
-        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
-
-        for (int i = 0; i < targetsInViewRadius.Length; i++)
+        if (Physics.SphereCast(Spawnpoint.position, viewRadius, transform.forward, out RaycastHit hitInfo, maxDistance))
         {
-            Transform target = targetsInViewRadius[i].transform;
-            Vector3 dirToTarget = (target.position - transform.position).normalized;
-            if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+            if (hitInfo.transform.TryGetComponent(out Player player))
             {
-                float disToTarget = Vector3.Distance(transform.forward, target.position);
+                interactuablePlayer = player.transform;
+                anim.enabled = false;
+                
+                transform.LookAt(interactuablePlayer.position);
+            }
 
-                if (Physics.Raycast(transform.position, dirToTarget, disToTarget, obstacleMask)){ 
-                visibleTargets.Add(target);
-                }
-                   
+        }
+        else if (interactuablePlayer != null)
+        {
+           anim.enabled = true;
+            interactuablePlayer = null;
 
-            }      
         }
 
-
-
-            
+       
     }
 }
 

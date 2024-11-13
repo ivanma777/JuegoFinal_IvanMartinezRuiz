@@ -102,8 +102,8 @@ Material:
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
     - _ExcludeFromTUAndAA: 0
-    - _NormalMapTiling: 2
-    - _NormalStrength: 0.596
+    - _NormalMapTiling: 20
+    - _NormalStrength: 0.606
     - _OpaqueCullMode: 2
     - _QueueControl: 0
     - _QueueOffset: 0
