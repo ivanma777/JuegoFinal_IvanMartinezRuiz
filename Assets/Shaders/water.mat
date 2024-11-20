@@ -40,7 +40,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Density: 40
+    - _Density: 100
     - _Noise: 6
     - _Power: 10
     - _QueueControl: 0
