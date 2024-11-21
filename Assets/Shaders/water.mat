@@ -40,17 +40,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Density: 100
-    - _Noise: 6
+    - _Density: 5000
+    - _Noise: 0.005
     - _Power: 10
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Speed: 6
-    - _SpeedOlas: 0.05
+    - _SpeedOlas: 0.02
     m_Colors:
     - _ColorOla: {r: 0.3679244, g: 0.5446335, b: 1, a: 0}
-    - _Tiling: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _waterColor: {r: 0.007843138, g: 0.16078432, b: 0.4862745, a: 0}
+    - _Tiling: {r: 2, g: 2, b: 0, a: 0}
+    - _waterColor: {r: 0.18823527, g: 0.46170536, b: 0.64705884, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2666668044376987286
 MonoBehaviour:
