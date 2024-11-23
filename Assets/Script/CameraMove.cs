@@ -83,7 +83,7 @@ public class CameraMove : MonoBehaviour
         {
            anim.enabled = true;
             interactuablePlayer = null;
-
+            
         }
 
        
