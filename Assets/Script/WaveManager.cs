@@ -9,7 +9,7 @@ public class WaveManager : MonoBehaviour
     public float amplitude;
     public float lenght;
     public float speed = 1f;
-    public float offset = 1f;
+    public float offset = 0f;
 
     private void Awake()
     {
@@ -20,14 +20,14 @@ public class WaveManager : MonoBehaviour
         else if (instance != this)
         {
             Debug.Log("Instance exist");
-            Destroy(instance);
+            Destroy(this);
 
         }
 
     }
     private void Update()
     {
-        offset = Time.deltaTime * speed;
+        offset += Time.deltaTime * speed;
     }
     public float GetWaveHeight(float _x)
     {
