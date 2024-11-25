@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "dialogoIn")]
 public class Dialogos : ScriptableObject
 {
-    [SerializeField] private string d1;
-    [SerializeField] private string d2;
-    [SerializeField] private string d3;
-    [SerializeField] private string d4;
+    public string d1;
+    public string d2;
+    public string d3;
+    public string d4;
+    
     
 }
