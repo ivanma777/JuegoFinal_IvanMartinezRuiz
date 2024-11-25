@@ -5,6 +5,8 @@ using UnityEngine;
 public class AimCamera : MonoBehaviour
 {
     [SerializeField] private Transform target;
+
+    [SerializeField] private Rango rango;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,11 +16,16 @@ public class AimCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 targetOrientation = target.position - transform.position;
-        Debug.DrawRay(transform.position, targetOrientation, Color.green);
+        if (rango.EstaEnRango)
+        {
 
-        Quaternion targetOrientationQuaternion = Quaternion.LookRotation(targetOrientation);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetOrientationQuaternion, Time.deltaTime);
+            Vector3 targetOrientation = target.position - transform.position;
+            Debug.DrawRay(transform.position, targetOrientation, Color.green);
+
+            Quaternion targetOrientationQuaternion = Quaternion.LookRotation(targetOrientation);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetOrientationQuaternion, Time.deltaTime);
+
+        }
         
     }
 }

@@ -8,6 +8,9 @@ public class CameraMove : MonoBehaviour
     [SerializeField] private float viewRadius;
     [SerializeField] private float viewAngle;
     [SerializeField] private float maxDistance;
+    [SerializeField] private Rango rango;
+
+    
 
     private Transform interactuablePlayer;
 
@@ -25,6 +28,8 @@ public class CameraMove : MonoBehaviour
     {
         //    StartCoroutine("FindTargetsWithDeLay", 0.2f);
         anim = GetComponent<Animator>();
+
+        
     }
 
     //IEnumerator FindTargetsWithDelay(float delay)
@@ -68,26 +73,33 @@ public class CameraMove : MonoBehaviour
 
     private void Update()
     {
-        if (Physics.SphereCast(Spawnpoint.position, viewRadius, transform.forward, out RaycastHit hitInfo, maxDistance))
+        if (rango.EstaEnRango)
         {
-            if (hitInfo.transform.TryGetComponent(out Player player))
+
+            if (Physics.SphereCast(Spawnpoint.position, viewRadius, transform.forward, out RaycastHit hitInfo, maxDistance))
             {
-                interactuablePlayer = player.transform;
-                anim.enabled = false;
+                if (hitInfo.transform.TryGetComponent(out Player player))
+                {
+                    interactuablePlayer = player.transform;
+                    anim.enabled = false;
                 
-                transform.LookAt(interactuablePlayer.position);
+                    transform.LookAt(interactuablePlayer.position);
+                }
+
+            }
+            else if (interactuablePlayer != null)
+            {
+               anim.enabled = true;
+                interactuablePlayer = null;
+            
             }
 
-        }
-        else if (interactuablePlayer != null)
-        {
-           anim.enabled = true;
-            interactuablePlayer = null;
-            
         }
 
        
     }
+
+   
 }
 
 
