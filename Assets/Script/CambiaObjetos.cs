@@ -6,11 +6,17 @@ using UnityEngine;
 public class CambiaObjetos : MonoBehaviour
 {
     [SerializeField] private GameObject radio;
+    [SerializeField] private Material radioOff;
+    
 
     private int indiceActual;
 
     private bool rActive = true;
-    
+
+    private void Start()
+    {
+        radioOff.DisableKeyword("_EMISSION");
+    }
 
     // Update is called once per frame
     void Update()
@@ -19,6 +25,10 @@ public class CambiaObjetos : MonoBehaviour
         {
             radio.SetActive(true);
             rActive = false;
+            
+            
+
+
 
         }
         else if (Input.GetKeyDown(KeyCode.Alpha1) && !rActive)
@@ -26,6 +36,7 @@ public class CambiaObjetos : MonoBehaviour
 
             radio.SetActive(false);
             rActive = true;
+            radioOff.DisableKeyword("_EMISSION");
         }
     }
 

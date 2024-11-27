@@ -6,12 +6,15 @@ using UnityEngine;
 public class Radio : MonoBehaviour
 {
     [SerializeField] private Material radioOff;
-    private bool estaApagado = true;
-    
+    private bool estaApagado = false;
+
+    [SerializeField] private DialogueManager dialogueManager;
+
+    [SerializeField] private GameObject radioCanvas;
+
     void Start()
     {
-       
-        //radioOff = GetComponent<Material>();
+        radioOff.DisableKeyword("_EMISSION");
     }
 
     // Update is called once per frame
@@ -21,6 +24,7 @@ public class Radio : MonoBehaviour
         {
             radioOff.DisableKeyword("_EMISSION");
             estaApagado = false;
+            radioCanvas.SetActive(false);
 
 
         }
@@ -28,7 +32,12 @@ public class Radio : MonoBehaviour
         {
             radioOff.EnableKeyword("_EMISSION");
             estaApagado = true;
+            radioCanvas.SetActive(true);
+            dialogueManager.StartDialogue();
+
 
         }
+
+        
     }
 }
