@@ -7,9 +7,12 @@ public class PlayerPick : MonoBehaviour
 {
     [SerializeField] private LayerMask pickableLayerMask;
 
-    private Transform interactuableActual;
+    private IInteractuable interactuableActual;
 
     private Camera cam;
+
+    [SerializeField] GameObject tabla;
+
 
 
     [SerializeField] private GameObject pickUpUI;
@@ -19,8 +22,13 @@ public class PlayerPick : MonoBehaviour
 
     private RaycastHit hit;
 
+    public void Interact()
+    {
+        
+    }
+
     // Update is called once per frame
-     void Start()
+    void Start()
     {
 
         cam = Camera.main;
@@ -32,15 +40,14 @@ public class PlayerPick : MonoBehaviour
         {
             //hit.collider.GetComponent<Outline>().enabled = (true);
 
-            if (hit.transform.TryGetComponent(out Pickeable scriptPickeable))
+            if (hit.transform.TryGetComponent(out IInteractuable pickeable))
             {
-                pickUpUI.SetActive(true);
-                interactuableActual = scriptPickeable.transform;
-                scriptPickeable.transform.GetComponent<Outline>().enabled = true;
+                
+                //pickUpUI.SetActive(true);
+                pickeable.transform.GetComponent<Outline>().enabled = true;
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    
-
+                    pickeable.Interact();
 
                 }
             }
@@ -48,7 +55,7 @@ public class PlayerPick : MonoBehaviour
         }
         else if (interactuableActual != null)
         {
-            interactuableActual.GetComponent<Outline>().enabled = false;
+            interactuableActual.transform.GetComponent<Outline>().enabled = false;
             pickUpUI.SetActive(false);
 
         }
