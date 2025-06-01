@@ -6,6 +6,7 @@ public class EventSystem : MonoBehaviour
     [SerializeField] private CleaningTaskEvent cleaningTaskEvent;
     [SerializeField] private InspectionTaskEvent inspectionTaskEvent;
     [SerializeField] private RestTaskEvent restTaskEvent;
+    [SerializeField] private VoidEvent taskCompletedEvent;
 
     [Header("Tareas")]
     [SerializeField] private CleaningTaskSO cleaningTask;       // Solo uno
@@ -17,11 +18,13 @@ public class EventSystem : MonoBehaviour
     private void OnEnable()
     {
         EventTimeLine.TimeToTriggerEvent += OnTimeToTriggerEvent;
+        taskCompletedEvent.Register(CompleteCurrentTask);
     }
 
     private void OnDisable()
     {
         EventTimeLine.TimeToTriggerEvent -= OnTimeToTriggerEvent;
+        taskCompletedEvent.UnRegister(CompleteCurrentTask);
     }
 
     private void OnTimeToTriggerEvent()
@@ -64,9 +67,11 @@ public class EventSystem : MonoBehaviour
     }
 
     // Llamar a esto desde los sistemas cuando se complete la tarea
-    public void CompleteCurrentTask()
+    public void CompleteCurrentTask(Void _)
     {
         isTaskActive = false;
         Debug.Log("[EventSystem] Tarea completada. Lista para la siguiente.");
+
+        
     }
 }

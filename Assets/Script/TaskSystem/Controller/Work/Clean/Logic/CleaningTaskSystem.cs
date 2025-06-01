@@ -8,12 +8,14 @@ public class CleaningTaskSystem : MonoBehaviour
     [SerializeField] private CleaningTaskSO taskData;
     [SerializeField] private CleaningTaskView view;
     [SerializeField] private Transform dirtParent;
+    [SerializeField] private VoidEvent taskCompletedEvent;
 
     private float remainingTime;
     private int cleanedCount = 0;
     private List<GameObject> activeDirtSpots = new();
 
     [SerializeField] private TrustEvent trustEvent;
+    [SerializeField] private MentalHealthEvent mentalHealthEvent;
 
     private void OnEnable()
     {
@@ -86,5 +88,9 @@ public class CleaningTaskSystem : MonoBehaviour
         activeDirtSpots.Clear();
 
         trustEvent.Raise(success ? 10 : -10);
+        mentalHealthEvent.Raise(-5);
+
+        taskCompletedEvent.Raise(new Void());
+
     }
 }

@@ -8,5 +8,7 @@ public class RestTaskSO : ScriptableObject
     public string taskName;
     public float hoursToAdvance;
     public int mentalHealthRecovery;
+   
+    public int totalPapers = 3; // o los que decidas
 
 }

@@ -39,6 +39,7 @@ public class MentalHealthSystem : MonoBehaviour
     {
         if (mentalHealthEvent != null)
             mentalHealthEvent.Register(ModifyMentalHealth);
+        EventTimeLine.TimeToTriggerEvent += OnHourPassed;
 
     }
 
@@ -46,7 +47,13 @@ public class MentalHealthSystem : MonoBehaviour
     {
         if (mentalHealthEvent != null)
             mentalHealthEvent.UnRegister(ModifyMentalHealth);
+        EventTimeLine.TimeToTriggerEvent -= OnHourPassed;
     }
 
+    private void OnHourPassed()
+    {
+        ModifyMentalHealth(-5);
+        Debug.Log("[MentalHealthTick] Salud mental reducida en 5 por el paso del tiempo.");
+    }
     public int GetActualMentalHealth() => saludMentalActual;
 }

@@ -5,10 +5,12 @@ using UnityEngine;
 public class InspectionTaskSystem : MonoBehaviour
 {
     [SerializeField] private InspectionTaskEvent taskEvent;
+    [SerializeField] private VoidEvent taskCompletedEvent;
     [SerializeField] private Transform container;
     [SerializeField] private GameObject imagenUIprefab;
     [SerializeField] private Transform imagenesUIContainer;
     [SerializeField] private TrustEvent trustEvent;
+    [SerializeField] private MentalHealthEvent mentalHealthEvent;
 
     private List<GameObject> objetosGenerados = new();
     private List<GameObject> objetivos = new();
@@ -16,19 +18,22 @@ public class InspectionTaskSystem : MonoBehaviour
     private Queue<GameObject> pool = new();
     private List<GameObject> activos = new();
 
+    private bool taskActive = false;
+
     private void OnEnable() => taskEvent.Register(IniciarInspeccion);
     private void OnDisable() => taskEvent.UnRegister(IniciarInspeccion);
 
     private void IniciarInspeccion(InspectionSO data)
     {
         LimpiarObjetos();
+        taskActive = true;
 
-        // Elegir objetos aleatorios
+        // Generar objetos aleatorios
         for (int i = 0; i < data.objectsIn; i++)
         {
             var prefab = data.possibleItems[Random.Range(0, data.possibleItems.Count)];
-
             GameObject go;
+
             if (pool.Count > 0)
             {
                 go = pool.Dequeue();
@@ -40,21 +45,47 @@ public class InspectionTaskSystem : MonoBehaviour
             }
 
             go.transform.SetParent(container);
-            go.transform.localPosition = Vector3.zero; // O ajusta posición si quieres más variedad
+            go.transform.localPosition = Vector3.zero;
             objetosGenerados.Add(go);
+            activos.Add(go);
         }
 
-        // Seleccionar objetivos de la lista generada (por ejemplo, los 3 primeros)
+        // Definir objetivos de inspección (por ejemplo, los 3 primeros)
         objetivos = new List<GameObject>(objetosGenerados.GetRange(0, 3));
 
-        // Mostrar imágenes relacionadas
-        for (int i = 0; i < data.referenceImages.Length; i++)
+        // Mostrar imágenes UI
+        foreach (var sprite in data.referenceImages)
         {
             var img = Instantiate(imagenUIprefab, imagenesUIContainer);
-            img.GetComponent<UnityEngine.UI.Image>().sprite = data.referenceImages[i];
+            img.GetComponent<UnityEngine.UI.Image>().sprite = sprite;
         }
 
-        Debug.Log("Inspección iniciada. Revisa el contenedor.");
+        Debug.Log("[InspectionTaskSystem] Inspección iniciada.");
+    }
+
+    public void RevisarObjeto(GameObject obj)
+    {
+        if (!taskActive) return;
+
+        if (objetivos.Contains(obj))
+        {
+            objetivos.Remove(obj);
+            Debug.Log(" Correcto. Objeto inspeccionado.");
+            trustEvent.Raise(5);
+            mentalHealthEvent.Raise(-5);
+        }
+        else
+        {
+            Debug.Log("Error. Este objeto no está en la lista.");
+            trustEvent.Raise(-10);
+        }
+
+        if (objetivos.Count == 0)
+        {
+            taskActive = false;
+            Debug.Log("[InspectionTaskSystem] Todos los objetivos inspeccionados.");
+            taskCompletedEvent.Raise(new Void()); // Notifica al EventSystem que se completó
+        }
     }
 
     private void LimpiarObjetos()
@@ -65,28 +96,12 @@ public class InspectionTaskSystem : MonoBehaviour
             pool.Enqueue(go);
         }
         activos.Clear();
+        objetosGenerados.Clear();
+        objetivos.Clear();
 
-        // Limpieza de imágenes UI
         foreach (Transform child in imagenesUIContainer)
         {
             Destroy(child.gameObject);
-        }
-    }
-
-    public void RevisarObjeto(GameObject obj)
-    {
-        if (objetivos.Contains(obj))
-        {
-            objetivos.Remove(obj);
-            Debug.Log("Correcto. Objeto inspeccionado.");
-
-            // Aumentar confianza +10
-            trustEvent.Raise(10);
-        }
-        else
-        {
-            Debug.Log("Error. Este objeto no está en la lista.");
-            trustEvent.Raise(-10);
         }
     }
 }
