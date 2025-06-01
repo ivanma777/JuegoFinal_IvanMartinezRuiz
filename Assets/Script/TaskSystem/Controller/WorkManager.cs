@@ -7,7 +7,7 @@ public class WorkManager : MonoBehaviour
     [SerializeField] private DayNight dayNightManager;
 
     [SerializeField] private Work workControll;
-    [SerializeField] private Rest restControll;
+    
 
     [SerializeField] private float workHour;
     [SerializeField] private float restHour;

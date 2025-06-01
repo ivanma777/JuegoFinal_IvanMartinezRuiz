@@ -1,16 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EventSystem : MonoBehaviour
 {
+    [Header("Eventos")]
     [SerializeField] private CleaningTaskEvent cleaningTaskEvent;
     [SerializeField] private InspectionTaskEvent inspectionTaskEvent;
     [SerializeField] private RestTaskEvent restTaskEvent;
 
-    [SerializeField] private CleaningTaskSO[] cleaningTasks;
-    [SerializeField] private InspectionSO[] inspectionTasks;
-    [SerializeField] private RestTaskSO[] restTasks;
+    [Header("Tareas")]
+    [SerializeField] private CleaningTaskSO cleaningTask;       // Solo uno
+    [SerializeField] private InspectionSO inspectionTask;       // Solo uno
+    [SerializeField] private RestTaskSO restTask;               // Solo uno
+
+    private bool isTaskActive = false;
 
     private void OnEnable()
     {
@@ -24,43 +26,47 @@ public class EventSystem : MonoBehaviour
 
     private void OnTimeToTriggerEvent()
     {
-        // Aquí decides qué tipo de evento lanzar, puede ser aleatorio o basado en lógica
-        int eventType = Random.Range(0, 2);
+        if (isTaskActive) return; // No lanzar nueva tarea hasta que se complete la anterior
+
+        int eventType = Random.Range(0, 3); // 0, 1 o 2
+        isTaskActive = true;
+
         switch (eventType)
         {
             case 0:
-                LaunchRandomCleaningTask();
+                LaunchCleaningTask();
                 break;
             case 1:
-                LaunchRandomInspectionTask();
+                LaunchInspectionTask();
                 break;
             case 2:
-                LaunchRandomRestTask();
+                LaunchRestTask();
                 break;
         }
     }
 
-    private void LaunchRandomCleaningTask()
+    private void LaunchCleaningTask()
     {
-        if (cleaningTasks.Length == 0) return;
-        var task = cleaningTasks[Random.Range(0, cleaningTasks.Length)];
-        cleaningTaskEvent.Raise(task);
-        Debug.Log($"[EventSystem] Cleaning task lanzada: {task.name}");
+        cleaningTaskEvent.Raise(cleaningTask);
+        Debug.Log($"[EventSystem] Cleaning task lanzada: {cleaningTask.name}");
     }
 
-    private void LaunchRandomInspectionTask()
+    private void LaunchInspectionTask()
     {
-        if (inspectionTasks.Length == 0) return;
-        var task = inspectionTasks[Random.Range(0, inspectionTasks.Length)];
-        inspectionTaskEvent.Raise(task);
-        Debug.Log($"[EventSystem] Inspection task lanzada: {task.name}");
+        inspectionTaskEvent.Raise(inspectionTask);
+        Debug.Log($"[EventSystem] Inspection task lanzada: {inspectionTask.name}");
     }
 
-    private void LaunchRandomRestTask()
+    private void LaunchRestTask()
     {
-        if (restTasks.Length == 0) return;
-        var task = restTasks[Random.Range(0, restTasks.Length)];
-        restTaskEvent.Raise(task);
-        Debug.Log($"[EventSystem] Rest task lanzada: {task.name}");
+        restTaskEvent.Raise(restTask);
+        Debug.Log($"[EventSystem] Rest task lanzada: {restTask.name}");
+    }
+
+    // Llamar a esto desde los sistemas cuando se complete la tarea
+    public void CompleteCurrentTask()
+    {
+        isTaskActive = false;
+        Debug.Log("[EventSystem] Tarea completada. Lista para la siguiente.");
     }
 }

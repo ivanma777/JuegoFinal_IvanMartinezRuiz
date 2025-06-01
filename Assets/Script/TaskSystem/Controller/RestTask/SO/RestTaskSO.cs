@@ -6,6 +6,7 @@ using UnityEngine;
 public class RestTaskSO : ScriptableObject
 {
     public string taskName;
-    public float durationHours;
+    public float hoursToAdvance;
     public int mentalHealthRecovery;
+
 }

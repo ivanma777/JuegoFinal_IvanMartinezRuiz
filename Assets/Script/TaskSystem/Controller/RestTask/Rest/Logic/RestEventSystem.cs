@@ -1,0 +1,45 @@
+using UnityEngine;
+
+public class RestEventSystem : MonoBehaviour
+{
+    [SerializeField] private RestEvent restEvent;
+    [SerializeField] private GameObject restZone; // Prefab o zona que se activa
+    private RestZoneTrigger restZoneTrigger;
+
+    private void Awake()
+    {
+        if (restZone != null)
+            restZoneTrigger = restZone.GetComponent<RestZoneTrigger>();
+    }
+
+    private void OnEnable()
+    {
+        restEvent.Register(OnRestEventReceived);
+    }
+
+    private void OnDisable()
+    {
+        restEvent.UnRegister(OnRestEventReceived);
+    }
+
+    private void OnRestEventReceived(RestTaskSO task)
+    {
+        Debug.Log($"[RestEventSystem] Activando zona de descanso: {task.name}");
+
+        if (restZone != null)
+        {
+            restZone.SetActive(true);
+
+            // Configura la zona con los datos del ScriptableObject
+            var trigger = restZone.GetComponent<RestZoneTrigger>();
+            if (trigger != null)
+            {
+                trigger.GetType().GetField("hoursToAdvance", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                       ?.SetValue(trigger, task.hoursToAdvance);
+
+                trigger.GetType().GetField("mentalHealthGain", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                       ?.SetValue(trigger, task.mentalHealthRecovery);
+            }
+        }
+    }
+}

@@ -8,6 +8,7 @@ public class InspectionTaskSystem : MonoBehaviour
     [SerializeField] private Transform container;
     [SerializeField] private GameObject imagenUIprefab;
     [SerializeField] private Transform imagenesUIContainer;
+    [SerializeField] private TrustEvent trustEvent;
 
     private List<GameObject> objetosGenerados = new();
     private List<GameObject> objetivos = new();
@@ -80,12 +81,12 @@ public class InspectionTaskSystem : MonoBehaviour
             Debug.Log("Correcto. Objeto inspeccionado.");
 
             // Aumentar confianza +10
-            TrustSystem.Instance.ModifyTrust(10);
+            trustEvent.Raise(10);
         }
         else
         {
             Debug.Log("Error. Este objeto no está en la lista.");
-           TrustSystem.Instance.ModifyTrust(-10);
+            trustEvent.Raise(-10);
         }
     }
 }
