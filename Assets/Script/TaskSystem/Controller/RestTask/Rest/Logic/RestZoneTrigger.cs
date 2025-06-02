@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,6 +6,7 @@ public class RestZoneTrigger : MonoBehaviour
 {
     [SerializeField] private string playerTag = "Player";
     [SerializeField] private GameObject restUI;
+    [SerializeField] private TMP_Text timerText;
     [SerializeField] private float hoursToAdvance = 2f;
     [SerializeField] private int mentalHealthGain = 10;
 
@@ -23,6 +25,9 @@ public class RestZoneTrigger : MonoBehaviour
         {
             isPlayerInside = true;
             if (restUI != null) restUI.SetActive(true);
+            timerText.text = "Descansar";
+            
+           
         }
     }
 

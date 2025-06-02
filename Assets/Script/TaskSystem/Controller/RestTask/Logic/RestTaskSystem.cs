@@ -9,6 +9,7 @@ public class RestTaskSystem : MonoBehaviour
     [SerializeField] private VoidEvent taskCompletedEvent;
     [SerializeField] private MentalHealthEvent mentalHealthEvent; 
     [SerializeField] private DayNight dayNight;
+    [SerializeField] private RestTaskSO restTaskSO;
 
     private Coroutine restCoroutine;
 
@@ -56,6 +57,7 @@ public class RestTaskSystem : MonoBehaviour
         }
 
         Debug.Log("[RestTaskSystem] Descanso finalizado. Volver al trabajo...");
+        CanvasManager.Instance.ShowResult(true, restTaskSO);
         mentalHealthEvent.Raise(-1); // NUEVO: Volver al trabajo cuesta
         taskCompletedEvent.Raise(new Void());  // Marca la tarea como completada
         restCoroutine = null;
