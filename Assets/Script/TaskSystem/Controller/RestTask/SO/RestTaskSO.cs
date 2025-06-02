@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Tasks/Rest Task")]
-public class RestTaskSO : ScriptableObject
+public class RestTaskSO : TaskSO
 {
+    [Header("Datos específicos de Descanso")]
     public string taskName;
     public float hoursToAdvance;
     public int mentalHealthRecovery;

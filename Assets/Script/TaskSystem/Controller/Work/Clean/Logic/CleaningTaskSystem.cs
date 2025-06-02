@@ -30,6 +30,7 @@ public class CleaningTaskSystem : MonoBehaviour
     private void OnCleaningTaskStarted(CleaningTaskSO task)
     {
         taskData = task;
+        CanvasManager.Instance.ShowTask(task);
         StartCleaningTask();
     }
 
@@ -67,21 +68,25 @@ public class CleaningTaskSystem : MonoBehaviour
 
     private IEnumerator TaskTimer()
     {
+        CanvasManager.Instance.StartTimer(remainingTime);
         while (remainingTime > 0f)
         {
             remainingTime -= Time.deltaTime;
             view.UpdateTimer(remainingTime);
+            CanvasManager.Instance.UpdateTimer(remainingTime);
             yield return null;
         }
 
         if (cleanedCount < taskData.numberOfDirtSpots)
         {
             TaskCompleted(false);
+            
         }
     }
 
     private void TaskCompleted(bool success)
     {
+        CanvasManager.Instance.StopTimer();
         StopAllCoroutines();
         view.HideUI();
         foreach (var dirt in activeDirtSpots) Destroy(dirt);
@@ -89,6 +94,7 @@ public class CleaningTaskSystem : MonoBehaviour
 
         trustEvent.Raise(success ? 10 : -10);
         mentalHealthEvent.Raise(-5);
+        CanvasManager.Instance.ShowResult(success, taskData);
 
         taskCompletedEvent.Raise(new Void());
 

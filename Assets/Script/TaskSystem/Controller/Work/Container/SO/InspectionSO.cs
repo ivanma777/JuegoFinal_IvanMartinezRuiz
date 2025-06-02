@@ -6,8 +6,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "InspectionTask")]
 public class InspectionSO : TaskSO
 {
+    [Header("Datos específicos de Inspection")]
+    public List<GameObject> possibleItems;
 
-    public List<GameObject> possibleItems; 
+    public float timeLimit;
 
     public Sprite[] referenceImages;
 

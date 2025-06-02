@@ -25,6 +25,7 @@ public class RestEventSystem : MonoBehaviour
     private void OnRestEventReceived(RestTaskSO task)
     {
         Debug.Log($"[RestEventSystem] Activando zona de descanso: {task.name}");
+        CanvasManager.Instance.ShowTask(task);
 
         if (restZone != null)
         {

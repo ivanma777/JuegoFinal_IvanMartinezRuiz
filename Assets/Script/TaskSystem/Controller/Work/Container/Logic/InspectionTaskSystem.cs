@@ -19,14 +19,19 @@ public class InspectionTaskSystem : MonoBehaviour
     private List<GameObject> activos = new();
 
     private bool taskActive = false;
+    private float remainingTime;
+    private InspectionSO taskData;
 
     private void OnEnable() => taskEvent.Register(IniciarInspeccion);
     private void OnDisable() => taskEvent.UnRegister(IniciarInspeccion);
 
     private void IniciarInspeccion(InspectionSO data)
     {
+        taskData = data;
         LimpiarObjetos();
         taskActive = true;
+
+        remainingTime = taskData.timeLimit; // Debes asegurarte que InspectionSO tenga esta variable
 
         // Generar objetos aleatorios
         for (int i = 0; i < data.objectsIn; i++)
@@ -51,7 +56,7 @@ public class InspectionTaskSystem : MonoBehaviour
         }
 
         // Definir objetivos de inspección (por ejemplo, los 3 primeros)
-        objetivos = new List<GameObject>(objetosGenerados.GetRange(0, 3));
+        objetivos = new List<GameObject>(objetosGenerados.GetRange(0, Mathf.Min(3, objetosGenerados.Count)));
 
         // Mostrar imágenes UI
         foreach (var sprite in data.referenceImages)
@@ -59,6 +64,10 @@ public class InspectionTaskSystem : MonoBehaviour
             var img = Instantiate(imagenUIprefab, imagenesUIContainer);
             img.GetComponent<UnityEngine.UI.Image>().sprite = sprite;
         }
+
+        CanvasManager.Instance.ShowTask(taskData);
+
+        StartCoroutine(TaskTimer());
 
         Debug.Log("[InspectionTaskSystem] Inspección iniciada.");
     }
@@ -82,10 +91,42 @@ public class InspectionTaskSystem : MonoBehaviour
 
         if (objetivos.Count == 0)
         {
-            taskActive = false;
-            Debug.Log("[InspectionTaskSystem] Todos los objetivos inspeccionados.");
-            taskCompletedEvent.Raise(new Void()); // Notifica al EventSystem que se completó
+            TaskCompleted(true);
         }
+    }
+
+    private IEnumerator TaskTimer()
+    {
+        CanvasManager.Instance.StartTimer(remainingTime);
+        while (remainingTime > 0f && taskActive)
+        {
+            remainingTime -= Time.deltaTime;
+            CanvasManager.Instance.UpdateTimer(remainingTime);
+            // Aquí podrías actualizar un HUD si quieres mostrar el tiempo
+            yield return null;
+        }
+
+        if (taskActive)  // Si aún está activa y el tiempo se acaba, falla la tarea
+        {
+            TaskCompleted(false);
+        }
+    }
+
+    private void TaskCompleted(bool success)
+    {
+        CanvasManager.Instance.StopTimer();
+        StopAllCoroutines();
+        taskActive = false;
+
+        LimpiarObjetos();
+
+        trustEvent.Raise(success ? 10 : -10);
+        mentalHealthEvent.Raise(-5);
+        CanvasManager.Instance.ShowResult(success, taskData);
+
+        taskCompletedEvent.Raise(new Void());
+
+        Debug.Log("[InspectionTaskSystem] Tarea completada. Éxito: " + success);
     }
 
     private void LimpiarObjetos()
