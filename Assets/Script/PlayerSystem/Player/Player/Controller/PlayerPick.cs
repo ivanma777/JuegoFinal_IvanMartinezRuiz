@@ -6,65 +6,51 @@ using UnityEngine;
 public class PlayerPick : MonoBehaviour
 {
     [SerializeField] private LayerMask pickableLayerMask;
-
-    private IInteractuable interactuableActual;
+    [SerializeField] private GameObject pickUpUI;
+    [SerializeField][Min(1)] private float hitRange = 3f;
 
     private Camera cam;
+    private IInteractuable interactuableActual;
 
-    [SerializeField] GameObject tabla;
-
-
-
-    [SerializeField] private GameObject pickUpUI;
-
-    [SerializeField]
-    [Min(1)] private float hitRange = 3;
-
-    private RaycastHit hit;
-
-    public void Interact()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Start()
     {
-
         cam = Camera.main;
     }
 
     void Update()
     {
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, hitRange))
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, hitRange, pickableLayerMask))
         {
-            //hit.collider.GetComponent<Outline>().enabled = (true);
-
-            if (hit.transform.TryGetComponent(out IInteractuable pickeable))
+            if (hit.transform.TryGetComponent(out IInteractuable pickable))
             {
-                
-                //pickUpUI.SetActive(true);
-                pickeable.transform.GetComponent<Outline>().enabled = true;
+                interactuableActual = pickable;
+
+                Outline outline = hit.transform.GetComponent<Outline>();
+                if (outline != null)
+                {
+                    outline.enabled = true;
+                }
+                pickUpUI?.SetActive(true);
+
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    pickeable.Interact();
-
+                    pickable.Interact();
                 }
             }
-
         }
-        else if (interactuableActual != null)
+        else
         {
-            interactuableActual.transform.GetComponent<Outline>().enabled = false;
-            pickUpUI.SetActive(false);
-
+            if (interactuableActual != null)
+            {
+                Outline outline = (interactuableActual as MonoBehaviour)?.GetComponent<Outline>();
+                if (outline != null)
+                {
+                    outline.enabled = false;
+                }
+                interactuableActual = null;
+                pickUpUI?.SetActive(false);
+            }
         }
-
-    
-
-
-        
-
-        
     }
 }
+
