@@ -12,6 +12,7 @@ public class RestTaskSystem : MonoBehaviour
     [SerializeField] private RestTaskSO restTaskSO;
     
     private RestZoneTrigger trigger;
+    private SearchSystem search;
 
     private Coroutine restCoroutine;
 
@@ -19,6 +20,7 @@ public class RestTaskSystem : MonoBehaviour
     private void Awake()
     {
         trigger = GetComponentInChildren<RestZoneTrigger>();
+        search = GetComponentInChildren<SearchSystem>();
     }
 
     private void OnEnable()
@@ -70,6 +72,7 @@ public class RestTaskSystem : MonoBehaviour
         }
 
         Debug.Log("[RestTaskSystem] Descanso finalizado. Volver al trabajo...");
+        search.DeactivateUncollectedPapers();
         restTaskSO.active = false;
         trigger.RestEventActive = false;
         CanvasManager.Instance.ShowResult(true, restTaskSO);

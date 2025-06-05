@@ -45,6 +45,7 @@ public class InspectionTaskSystem : MonoBehaviour
         {
             panelAbierto = !panelAbierto;
             panelInspeccion.SetActive(panelAbierto);
+
         }
     }
 
@@ -71,6 +72,8 @@ public class InspectionTaskSystem : MonoBehaviour
         }
 
         CanvasManager.Instance.ShowTask(data);
+
+        CanvasManager.Instance.ShowInspection();
 
         remainingTime = data.timeLimit;
         taskActive = true;
@@ -170,11 +173,11 @@ public class InspectionTaskSystem : MonoBehaviour
         //    Debug.Log("Debes seleccionar exactamente 3 imágenes.");
         //    return;
         //}
-        if (seleccionadas.Count != imagenesCorrectas.Count)
-        {
-            Debug.Log("Debes seleccionar exactamente " + imagenesCorrectas.Count + " imágenes.");
-            return;
-        }
+        //if (seleccionadas.Count != imagenesCorrectas.Count)
+        //{
+        //    Debug.Log("Debes seleccionar exactamente " + imagenesCorrectas.Count + " imágenes.");
+        //    return;
+        //}
 
 
 
@@ -212,7 +215,10 @@ public class InspectionTaskSystem : MonoBehaviour
 
     private void TaskCompleted(bool success)
     {
+        CanvasManager.Instance.HideInspection();
         CanvasManager.Instance.StopTimer();
+        panelAbierto = false;
+        panelInspeccion.SetActive(panelAbierto);
         StopAllCoroutines();
         taskActive = false;
 

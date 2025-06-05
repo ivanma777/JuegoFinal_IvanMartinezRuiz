@@ -10,7 +10,9 @@ public class RestTaskSO : TaskSO
     public float hoursToAdvance;
     public int mentalHealthRecovery;
     public bool active;
-   
+
+    public GameObject PaperPrefab;
+
     public int totalPapers = 3; // o los que decidas
 
 }

@@ -21,4 +21,6 @@ MonoBehaviour:
   hoursToAdvance: 10
   mentalHealthRecovery: 5
   active: 0
+  PaperPrefab: {fileID: 5220585500632195089, guid: a5177490d49e10240bd7193b5ad4ac7c,
+    type: 3}
   totalPapers: 3

@@ -12,6 +12,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private TMP_Text objectiveText;
     [SerializeField] private TMP_Text resultText;
     [SerializeField] private Image eButton;
+    [SerializeField] private Image InspectionButton;
     [SerializeField] private Image RestScreen;
     [SerializeField] private Animator RestScreenAnim;
     [SerializeField] private TMP_Text hudTextSearch;
@@ -77,7 +78,18 @@ public class CanvasManager : MonoBehaviour
         timerText.gameObject.SetActive(false);
     }
 
+    public void ShowInspection()
+    {
+        InspectionButton.gameObject.SetActive(true);
 
+    }
+
+    public void HideInspection()
+    {
+
+        InspectionButton.gameObject.SetActive(false);
+
+    }
 
     public void ShowInteraction()
     {

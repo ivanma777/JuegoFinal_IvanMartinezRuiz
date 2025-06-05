@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,6 +36,8 @@ public class EventSystem : MonoBehaviour
     private void OnTimeToTriggerEvent()
     {
         if (isTaskActive) return; // No lanzar nueva tarea hasta que se complete la anterior
+
+        
 
         List<TaskType> availableTasks = new List<TaskType> { TaskType.Cleaning, TaskType.Inspection, TaskType.Rest };
         availableTasks.Remove(lastTask); // Evita repetir la misma tarea
@@ -79,10 +82,21 @@ public class EventSystem : MonoBehaviour
         restTaskEvent.Raise(restTask);
     }
 
+    private IEnumerator Wait()
+    {
+        Debug.Log("[EventSystem] Esperando antes de permitir otra tarea...");
+        yield return new WaitForSeconds(2f);
+
+        isTaskActive = false;
+        Debug.Log("[EventSystem] Tarea completada. Lista para la siguiente.");
+    }
     // Llamar a esto desde los sistemas cuando se complete la tarea
     public void CompleteCurrentTask(Void _)
     {
-        isTaskActive = false;
+        StartCoroutine(Wait());
+
+        //isTaskActive = false;
+
         Debug.Log("[EventSystem] Tarea completada. Lista para la siguiente.");
 
         

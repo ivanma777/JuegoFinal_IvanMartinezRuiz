@@ -71,6 +71,20 @@ public class SistemaInteraccion : MonoBehaviour
 
                 return;
             }
+            if (hitInfo.transform.TryGetComponent(out PaperCollect paper))
+            {
+                interactuableActual = paper.transform;
+                paper.transform.GetComponent<Outline>().enabled = true; // si tiene outline opcional
+
+                CanvasManager.Instance.ShowInteraction();
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    paper.Collect();
+                }
+
+                return;
+            }
 
 
 
