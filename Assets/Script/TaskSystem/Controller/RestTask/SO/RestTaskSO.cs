@@ -9,6 +9,7 @@ public class RestTaskSO : TaskSO
     public string taskName;
     public float hoursToAdvance;
     public int mentalHealthRecovery;
+    public bool active;
    
     public int totalPapers = 3; // o los que decidas
 

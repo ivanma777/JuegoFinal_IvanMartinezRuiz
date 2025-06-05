@@ -8,8 +8,8 @@ public class DirtSpot : MonoBehaviour
 
     public void Init(CleaningTaskSystem sys) => system = sys;
 
-    private void OnMouseDown() // O usar Trigger si prefieres.
+    public void Clean() // O usar Trigger si prefieres.
     {
-        system.OnDirtCleaned(gameObject);
+        system.OnDirtCleaned(this);
     }
 }

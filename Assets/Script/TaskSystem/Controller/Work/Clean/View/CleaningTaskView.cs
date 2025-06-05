@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CleaningTaskView : MonoBehaviour
 {
     public GameObject taskUI;
-    public UnityEngine.UI.Text timerText;
+    [SerializeField] private TMP_Text timerText;
 
     public void ShowUI() => taskUI.SetActive(true);
     public void HideUI() => taskUI.SetActive(false);

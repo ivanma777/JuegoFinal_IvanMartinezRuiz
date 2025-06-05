@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +8,7 @@ public class SearchSystem : MonoBehaviour
 {
     [SerializeField] private SearchEvent searchEvent;
     [SerializeField] private GameObject[] paperObjects;
-    [SerializeField] private Text hudText;
+    [SerializeField] private TMP_Text hudText;
     [SerializeField] private GameObject finalMessage;
 
     private int papersCollected = 0;
@@ -26,6 +27,7 @@ public class SearchSystem : MonoBehaviour
 
     private void OnSearchTaskReceived(RestTaskSO task)
     {
+        
         papersCollected = 0;
         finalSecretUnlocked = false;
         totalPapers = task.totalPapers;

@@ -10,8 +10,16 @@ public class RestTaskSystem : MonoBehaviour
     [SerializeField] private MentalHealthEvent mentalHealthEvent; 
     [SerializeField] private DayNight dayNight;
     [SerializeField] private RestTaskSO restTaskSO;
+    
+    private RestZoneTrigger trigger;
 
     private Coroutine restCoroutine;
+
+
+    private void Awake()
+    {
+        trigger = GetComponentInChildren<RestZoneTrigger>();
+    }
 
     private void OnEnable()
     {
@@ -27,9 +35,12 @@ public class RestTaskSystem : MonoBehaviour
 
     private void OnRestTaskReceived(RestTaskSO taskData)
     {
+        restTaskSO.active = true;
+
         Debug.Log($"[RestTaskSystem] Activando eventos de descanso: {taskData.name}");
         restEvent.Raise(taskData);   
-        searchEvent.Raise(taskData); 
+        searchEvent.Raise(taskData);
+        CanvasManager.Instance.ActivateHUD(true);
 
         if (restCoroutine != null)
             StopCoroutine(restCoroutine);
@@ -40,7 +51,9 @@ public class RestTaskSystem : MonoBehaviour
     private IEnumerator RestDurationCoroutine()
     {
         float startHour = dayNight.hora;
-        float waitTime = 2f;
+        float waitTime = 5f;
+        trigger.RestEventActive = true;
+
 
         while (true)
         {
@@ -57,9 +70,12 @@ public class RestTaskSystem : MonoBehaviour
         }
 
         Debug.Log("[RestTaskSystem] Descanso finalizado. Volver al trabajo...");
+        restTaskSO.active = false;
+        trigger.RestEventActive = false;
         CanvasManager.Instance.ShowResult(true, restTaskSO);
         mentalHealthEvent.Raise(-1); // NUEVO: Volver al trabajo cuesta
-        taskCompletedEvent.Raise(new Void());  // Marca la tarea como completada
         restCoroutine = null;
+        CanvasManager.Instance.ActivateHUD(false);
+        taskCompletedEvent.Raise(new Void());  // Marca la tarea como completada
     }
 }

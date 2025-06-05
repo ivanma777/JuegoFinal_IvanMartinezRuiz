@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 434c5a0027905854cbce04ecf3e7f712, type: 3}
+  m_Name: InspectionSO
+  m_EditorClassIdentifier: 
+  titulo: Inspection
+  descripcion: Inspeciona objetos y mira si se encuentra en la lista
+  objetivo: 'Objetivo: Comprobar lista'
+  recompensaTexto: ole
+  castigoTexto: mal
+  possibleItems:
+  - {fileID: 11400000, guid: b2fbab54a3efc77488383841f8133307, type: 2}
+  - {fileID: 11400000, guid: cdcf2698562f7284cb678ff2654a7261, type: 2}
+  - {fileID: 11400000, guid: 285f09b0b5f85ad46869c33ce29473c7, type: 2}
+  timeLimit: 5
+  referenceImages:
+  - {fileID: 7482667652216324306, guid: ce2b5718b7a993d499a12c4f10d5d982, type: 3}
+  - {fileID: -9095717837082945937, guid: 9873b054d42a5df468229633732c912b, type: 3}
+  - {fileID: -2413806693520163455, guid: 22a11388698674b4183b0e04816583ed, type: 3}
+  - {fileID: 7482667652216324306, guid: 383337eb8acd18640a5a84ba4250dd65, type: 3}
+  - {fileID: -2135585597343286014, guid: 72747a29ec344f042bcb2cc206ac3dc0, type: 3}
+  objectsIn: 3

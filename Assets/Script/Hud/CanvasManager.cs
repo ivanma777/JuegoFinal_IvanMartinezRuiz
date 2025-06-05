@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private TMP_Text descriptionText;
     [SerializeField] private TMP_Text objectiveText;
     [SerializeField] private TMP_Text resultText;
+    [SerializeField] private Image eButton;
+    [SerializeField] private Image RestScreen;
+    [SerializeField] private Animator RestScreenAnim;
+    [SerializeField] private TMP_Text hudTextSearch;
 
     [Header("Temporizador")]
     [SerializeField] private TMP_Text timerText;  // Asignar en inspector
@@ -17,8 +22,13 @@ public class CanvasManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
     }
 
     public void ShowTask(TaskSO task)
@@ -66,4 +76,59 @@ public class CanvasManager : MonoBehaviour
     {
         timerText.gameObject.SetActive(false);
     }
+
+
+
+    public void ShowInteraction()
+    {
+        eButton.gameObject.SetActive(true);
+
+    }
+
+    public void HideInteraction()
+    {
+
+        eButton.gameObject.SetActive(false);
+
+    }
+
+    public void SetScreen(bool screen)
+    {
+        if(screen)
+        {
+            //RestScreen.gameObject.SetActive(true);
+            RestScreenAnim.SetBool("ScreenBool", true);
+            RestScreenAnim.updateMode = AnimatorUpdateMode.UnscaledTime;
+
+        }
+        else
+        {
+
+            RestScreenAnim.SetBool("ScreenBool", false);
+            RestScreenAnim.updateMode = AnimatorUpdateMode.Normal;
+            //RestScreen.gameObject.SetActive(false);
+        }
+
+
+    }
+
+    public void ActivateHUD(bool activate)
+    {
+        if (activate)
+        {
+
+            hudTextSearch.gameObject.SetActive(true);
+
+
+        }
+        else
+
+        {
+            hudTextSearch.gameObject.SetActive(false);
+
+        }
+
+    }
+
+
 }

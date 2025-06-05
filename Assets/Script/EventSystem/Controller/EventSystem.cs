@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EventSystem : MonoBehaviour
@@ -15,6 +16,10 @@ public class EventSystem : MonoBehaviour
 
     private bool isTaskActive = false;
 
+    private enum TaskType { None, Cleaning, Inspection, Rest }
+    private TaskType lastTask = TaskType.None;
+
+
     private void OnEnable()
     {
         EventTimeLine.TimeToTriggerEvent += OnTimeToTriggerEvent;
@@ -31,18 +36,26 @@ public class EventSystem : MonoBehaviour
     {
         if (isTaskActive) return; // No lanzar nueva tarea hasta que se complete la anterior
 
-        int eventType = Random.Range(0, 3); // 0, 1 o 2
-        isTaskActive = true;
+        List<TaskType> availableTasks = new List<TaskType> { TaskType.Cleaning, TaskType.Inspection, TaskType.Rest };
+        availableTasks.Remove(lastTask); // Evita repetir la misma tarea
 
-        switch (eventType)
+        // Seleccionar nueva tarea aleatoria
+        TaskType newTask = availableTasks[Random.Range(0, availableTasks.Count)];
+        isTaskActive = true;
+        lastTask = newTask;
+
+
+        
+
+        switch (newTask)
         {
-            case 0:
+            case TaskType.Cleaning:
                 LaunchCleaningTask();
                 break;
-            case 1:
+            case TaskType.Inspection:
                 LaunchInspectionTask();
                 break;
-            case 2:
+            case TaskType.Rest:
                 LaunchRestTask();
                 break;
         }
@@ -50,20 +63,20 @@ public class EventSystem : MonoBehaviour
 
     private void LaunchCleaningTask()
     {
-        cleaningTaskEvent.Raise(cleaningTask);
         Debug.Log($"[EventSystem] Cleaning task lanzada: {cleaningTask.name}");
+        cleaningTaskEvent.Raise(cleaningTask);
     }
 
     private void LaunchInspectionTask()
     {
-        inspectionTaskEvent.Raise(inspectionTask);
         Debug.Log($"[EventSystem] Inspection task lanzada: {inspectionTask.name}");
+        inspectionTaskEvent.Raise(inspectionTask);
     }
 
     private void LaunchRestTask()
     {
-        restTaskEvent.Raise(restTask);
         Debug.Log($"[EventSystem] Rest task lanzada: {restTask.name}");
+        restTaskEvent.Raise(restTask);
     }
 
     // Llamar a esto desde los sistemas cuando se complete la tarea

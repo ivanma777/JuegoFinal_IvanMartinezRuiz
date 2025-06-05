@@ -6,6 +6,7 @@ public class SistemaInteraccion : MonoBehaviour
 {
     [SerializeField] private float maxDistance;
     private Camera cam;
+
     private Transform interactuableActual;
 
     public bool puertaAbierta;
@@ -18,27 +19,16 @@ public class SistemaInteraccion : MonoBehaviour
 
     private void Update()
     {
-        DeteccionCaja();
+        Deteccion();
 
     }
 
-    private void Interactuar()
-    {
-        if (!interactuableActual)
-        {
-
-
-
-
-        }
-
-
-    }
+    
 
     // Update is called once per frame
 
 
-    private void DeteccionCaja()
+    private void Deteccion()
     {
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hitInfo, maxDistance))
         {
@@ -47,6 +37,7 @@ public class SistemaInteraccion : MonoBehaviour
             {
                 interactuableActual = scriptCaja.transform;
                 scriptCaja.transform.GetComponent<Outline>().enabled = true;
+                CanvasManager.Instance.ShowInteraction();
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     if(puertaAbierta)
@@ -63,12 +54,30 @@ public class SistemaInteraccion : MonoBehaviour
 
 
                 }
+                return;
             }
+
+            if (hitInfo.transform.TryGetComponent(out DirtSpot dirtSpot))
+            {
+                interactuableActual = dirtSpot.transform;
+                dirtSpot.transform.GetComponent<Outline>().enabled = true; // si tiene outline opcional
+
+                CanvasManager.Instance.ShowInteraction();
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    dirtSpot.Clean();
+                }
+
+                return;
+            }
+
+
 
         }
         else if (interactuableActual != null)
         {
-
+            CanvasManager.Instance.HideInteraction();
             interactuableActual.GetComponent<Outline>().enabled = false;
             interactuableActual = null;
         }

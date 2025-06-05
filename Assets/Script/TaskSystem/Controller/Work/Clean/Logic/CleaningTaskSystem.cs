@@ -4,18 +4,25 @@ using UnityEngine;
 
 public class CleaningTaskSystem : MonoBehaviour
 {
+    [Header("Referencias")]
     [SerializeField] private CleaningTaskEvent cleaningEvent;
     [SerializeField] private CleaningTaskSO taskData;
     [SerializeField] private CleaningTaskView view;
     [SerializeField] private Transform dirtParent;
     [SerializeField] private VoidEvent taskCompletedEvent;
 
-    private float remainingTime;
-    private int cleanedCount = 0;
-    private List<GameObject> activeDirtSpots = new();
-
+    [Header("Eventos de confianza y salud mental")]
     [SerializeField] private TrustEvent trustEvent;
     [SerializeField] private MentalHealthEvent mentalHealthEvent;
+
+    [Header("Spawn Points")]
+    [SerializeField] private List<Transform> spawnPoints; // Aquí defines los puntos fijos
+
+    private float remainingTime;
+    private int cleanedCount = 0;
+
+    private List<DirtSpot> activeDirtSpots = new();
+    private Queue<DirtSpot> pool = new();
 
     private void OnEnable()
     {
@@ -45,19 +52,41 @@ public class CleaningTaskSystem : MonoBehaviour
 
     private void GenerateDirtSpots()
     {
-        foreach (Vector3 point in taskData.spawnPositions)
+        ClearExistingSpots();
+
+        int count = Mathf.Min(taskData.numberOfDirtSpots, spawnPoints.Count);
+
+        for (int i = 0; i < count; i++)
         {
-            if (activeDirtSpots.Count >= taskData.numberOfDirtSpots) break;
-            GameObject dirt = Instantiate(taskData.dirtPrefab, point, Quaternion.identity, dirtParent);
-            dirt.GetComponent<DirtSpot>().Init(this);
+            DirtSpot dirt = GetFromPool();
+            Transform spawn = spawnPoints[i];
+            dirt.transform.SetParent(dirtParent);
+            dirt.transform.position = spawn.position;
+            dirt.transform.rotation = spawn.rotation;
+            dirt.Init(this);
+            dirt.gameObject.SetActive(true);
             activeDirtSpots.Add(dirt);
         }
     }
 
-    public void OnDirtCleaned(GameObject dirt)
+    private DirtSpot GetFromPool()
     {
+        if (pool.Count > 0)
+        {
+            return pool.Dequeue();
+        }
+        else
+        {
+            GameObject newObj = Instantiate(taskData.dirtPrefab, Vector3.zero, Quaternion.identity);
+            return newObj.GetComponent<DirtSpot>();
+        }
+    }
+
+    public void OnDirtCleaned(DirtSpot dirt)
+    {
+        dirt.gameObject.SetActive(false);
         activeDirtSpots.Remove(dirt);
-        Destroy(dirt);
+        pool.Enqueue(dirt);
         cleanedCount++;
 
         if (cleanedCount >= taskData.numberOfDirtSpots)
@@ -69,6 +98,7 @@ public class CleaningTaskSystem : MonoBehaviour
     private IEnumerator TaskTimer()
     {
         CanvasManager.Instance.StartTimer(remainingTime);
+
         while (remainingTime > 0f)
         {
             remainingTime -= Time.deltaTime;
@@ -80,7 +110,6 @@ public class CleaningTaskSystem : MonoBehaviour
         if (cleanedCount < taskData.numberOfDirtSpots)
         {
             TaskCompleted(false);
-            
         }
     }
 
@@ -89,14 +118,21 @@ public class CleaningTaskSystem : MonoBehaviour
         CanvasManager.Instance.StopTimer();
         StopAllCoroutines();
         view.HideUI();
-        foreach (var dirt in activeDirtSpots) Destroy(dirt);
-        activeDirtSpots.Clear();
+        ClearExistingSpots();
 
         trustEvent.Raise(success ? 10 : -10);
         mentalHealthEvent.Raise(-5);
         CanvasManager.Instance.ShowResult(success, taskData);
-
         taskCompletedEvent.Raise(new Void());
+    }
 
+    private void ClearExistingSpots()
+    {
+        foreach (var dirt in activeDirtSpots)
+        {
+            dirt.gameObject.SetActive(false);
+            pool.Enqueue(dirt);
+        }
+        activeDirtSpots.Clear();
     }
 }

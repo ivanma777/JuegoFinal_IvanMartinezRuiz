@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45fd04b81226eb64f8a590d7e4c3ba59, type: 3}
+  m_Name: Cilindre
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 8545555854651553423, guid: 5aec6b4c1737e4c4bba7a4d8de3184d8, type: 3}
+  referenceImage: {fileID: -9095717837082945937, guid: 9873b054d42a5df468229633732c912b,
+    type: 3}

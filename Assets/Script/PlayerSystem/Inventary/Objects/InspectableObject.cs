@@ -8,6 +8,6 @@ public class InspectableObject : MonoBehaviour, IInteractuable
 
     public void Interact()
     {
-        taskSystem.RevisarObjeto(gameObject);
+        //taskSystem.RevisarObjeto(gameObject);
     }
 }

@@ -9,7 +9,7 @@ public class RestEventSystem : MonoBehaviour
     private void Awake()
     {
         if (restZone != null)
-            restZoneTrigger = restZone.GetComponent<RestZoneTrigger>();
+            restZoneTrigger = restZone.GetComponentInChildren<RestZoneTrigger>();
     }
 
     private void OnEnable()
@@ -24,6 +24,8 @@ public class RestEventSystem : MonoBehaviour
 
     private void OnRestEventReceived(RestTaskSO task)
     {
+        restZoneTrigger.RestEventActive = task.active;
+
         Debug.Log($"[RestEventSystem] Activando zona de descanso: {task.name}");
         CanvasManager.Instance.ShowTask(task);
 
@@ -32,7 +34,7 @@ public class RestEventSystem : MonoBehaviour
             restZone.SetActive(true);
 
             // Configura la zona con los datos del ScriptableObject
-            var trigger = restZone.GetComponent<RestZoneTrigger>();
+            var trigger = restZoneTrigger;
             if (trigger != null)
             {
                 trigger.GetType().GetField("hoursToAdvance", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)

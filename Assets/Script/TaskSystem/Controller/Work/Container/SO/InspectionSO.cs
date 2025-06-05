@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "InspectionTask")]
+[CreateAssetMenu(fileName = "NewInspectionTask", menuName = "Tasks/Inspection Task")]
+
 public class InspectionSO : TaskSO
 {
-    [Header("Datos específicos de Inspection")]
-    public List<GameObject> possibleItems;
+    [Header("Datos especificos de Inspection")]
+    [SerializeField] public List<InspectableItemSO> possibleItems;
 
     public float timeLimit;
 

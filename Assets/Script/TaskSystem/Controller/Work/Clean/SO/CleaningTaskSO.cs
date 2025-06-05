@@ -9,6 +9,6 @@ public class CleaningTaskSO : TaskSO
     public float timeLimit = 15f;
     public int numberOfDirtSpots = 5;
     public GameObject dirtPrefab;
-    public Vector3[] spawnPositions;
+    
     public bool taskComplete;
 }
