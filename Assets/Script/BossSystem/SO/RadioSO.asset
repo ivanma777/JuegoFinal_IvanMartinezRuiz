@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8bbc3fc4fcec494da0ed27c4b4e6c2a, type: 3}
+  m_Name: RadioSO
+  m_EditorClassIdentifier: 
+  respuestasAltas:
+  - {fileID: 11400000, guid: 782121e232eacd444ab1f032b98376cf, type: 2}
+  respuestasMedias:
+  - {fileID: 11400000, guid: 785b86eb3cd73254f9a89d9d9e77ffba, type: 2}
+  respuestasBajas:
+  - {fileID: 11400000, guid: 6de2334650e760a49b732175137ea35e, type: 2}
+  audioClip: {fileID: 0}
+  confianzaMediaThreshold: 40
+  confianzaAltaThreshold: 70
