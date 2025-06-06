@@ -11,6 +11,8 @@ public class MouseScript : MonoBehaviour
     float xRotation = 0f;
     private bool panelAbierto = true;
 
+    public bool PanelAbierto { get => panelAbierto; set => panelAbierto = value; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +24,14 @@ public class MouseScript : MonoBehaviour
     {
         if(panelAbierto)
         {
+            if(Cursor.visible)
+            {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
 
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+            }
+
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;

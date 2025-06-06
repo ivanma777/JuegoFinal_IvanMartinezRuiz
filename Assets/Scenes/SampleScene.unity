@@ -9633,6 +9633,7 @@ MonoBehaviour:
   - {fileID: 1370313709}
   - {fileID: 386053882}
   - {fileID: 2071572390}
+  mouse: {fileID: 2092163446}
   panelInspeccion: {fileID: 173292767}
   imagenUIprefab: {fileID: 2175512276351333855, guid: 1f2e73d8f901d334194a999ba845cf4d,
     type: 3}

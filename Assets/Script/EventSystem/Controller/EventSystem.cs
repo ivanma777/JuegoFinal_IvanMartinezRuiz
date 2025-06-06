@@ -95,6 +95,9 @@ public class EventSystem : MonoBehaviour
     {
         StartCoroutine(Wait());
 
+
+       
+
         //isTaskActive = false;
 
         Debug.Log("[EventSystem] Tarea completada. Lista para la siguiente.");

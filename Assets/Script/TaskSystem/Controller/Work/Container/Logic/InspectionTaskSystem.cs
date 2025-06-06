@@ -18,6 +18,7 @@ public class InspectionTaskSystem : MonoBehaviour
     [SerializeField] private InspectionSO taskData;
     [SerializeField] private Transform container;
     [SerializeField] private List<Transform> spawnPoints;
+    [SerializeField] private MouseScript mouse;
 
     public GameObject panelInspeccion; // Asignar en el Inspector
     private bool panelAbierto = false;
@@ -215,6 +216,8 @@ public class InspectionTaskSystem : MonoBehaviour
 
     private void TaskCompleted(bool success)
     {
+        mouse.PanelAbierto = true;
+
         CanvasManager.Instance.HideInspection();
         CanvasManager.Instance.StopTimer();
         panelAbierto = false;
