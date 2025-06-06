@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respuestasAltas:
   - {fileID: 11400000, guid: 782121e232eacd444ab1f032b98376cf, type: 2}
+  - {fileID: 11400000, guid: 782121e232eacd444ab1f032b98376cf, type: 2}
   respuestasMedias:
   - {fileID: 11400000, guid: 785b86eb3cd73254f9a89d9d9e77ffba, type: 2}
+  - {fileID: 11400000, guid: a40176eff533f5c4e86ab58940e1eb49, type: 2}
   respuestasBajas:
   - {fileID: 11400000, guid: 6de2334650e760a49b732175137ea35e, type: 2}
+  - {fileID: 11400000, guid: 3db44c1e6c16acb4e846f33077719057, type: 2}
   audioClip: {fileID: 0}
   confianzaMediaThreshold: 40
   confianzaAltaThreshold: 70

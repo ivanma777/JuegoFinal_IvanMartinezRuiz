@@ -8,15 +8,25 @@ using TMPro;
 public class Radio : MonoBehaviour
 {
     [SerializeField] private RadioEvent radioEvent;
+    [SerializeField] private VoidEvent radioAnsweredEvent;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private TextMeshProUGUI textComponent;
     [SerializeField] private GameObject radioCanvas;
     [SerializeField] private Material radioMaterial;
+    [SerializeField] private GameObject radioObject;
 
     private string[] lineas;
     private int index;
     private float textSpeed = 0.05f;
     private bool estaActiva;
+    private bool haRespondido = false;
+    private bool radioSacada = false;
+
+    private void Awake()
+    {
+           
+    }
+
 
     private void OnEnable()
     {
@@ -30,6 +40,7 @@ public class Radio : MonoBehaviour
 
     private void OnRadioMensajeRecibido(RadioSO so)
     {
+        Debug.Log("Llego alarma");
         RadioResponseSO respuesta = so.ObtenerRespuestaPorConfianza(0); // se ignora porque ya se eligió en el manager
 
         if (respuesta != null)
@@ -37,28 +48,53 @@ public class Radio : MonoBehaviour
             lineas = new string[] { respuesta.mensaje }; // puedes dividir en varias si deseas
             index = 0;
             textComponent.text = "";
-            audioSource.PlayOneShot(respuesta.audioClip);
-            StartCoroutine(TypeLine());
+            ////audioSource.PlayOneShot(respuesta.audioClip);
+            //StartCoroutine(TypeLine());
 
-            radioCanvas.SetActive(true);
-            radioMaterial.EnableKeyword("_EMISSION");
+            //radioCanvas.SetActive(true);
+            //radioMaterial.EnableKeyword("_EMISSION");
             estaActiva = true;
+            haRespondido = false;
         }
     }
 
     private void Update()
     {
-        if (!estaActiva) return;
-
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            FindObjectOfType<RadioManager>().CogerAlarma();
-            radioCanvas.SetActive(false);
-            estaActiva = false;
+            radioSacada = !radioSacada; // Alterna entre sacarla y guardarla
+
+            radioObject.SetActive(radioSacada);
+            radioCanvas.SetActive(radioSacada); // Muestra o esconde el canvas
+            radioMaterial.SetColor("_EmissionColor", radioSacada ? Color.white : Color.black); // Efecto visual opcional
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (radioSacada && estaActiva && Input.GetKeyDown(KeyCode.R))
         {
+            if (!haRespondido)
+            {
+                StartCoroutine(TypeLine());
+
+                radioCanvas.SetActive(true);
+                radioMaterial.EnableKeyword("_EMISSION");
+                haRespondido = true;
+                radioAnsweredEvent.Raise(new Void());
+            }
+            else
+            {
+                // Apagar radio
+                ////audioSource.Stop();
+                radioCanvas.SetActive(false);
+                radioMaterial.DisableKeyword("_EMISSION");
+                estaActiva = false;
+                textComponent.text = "";
+            }
+        }
+
+        if (radioSacada && estaActiva && Input.GetKeyDown(KeyCode.Space))
+        {
+            if (lineas == null || lineas.Length == 0) return;
+
             if (textComponent.text == lineas[index])
             {
                 SiguienteLinea();
@@ -81,6 +117,15 @@ public class Radio : MonoBehaviour
         }
     }
 
+    private IEnumerator CerrarRadioConDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        textComponent.text = "";
+        radioCanvas.SetActive(false);
+        radioMaterial.DisableKeyword("_EMISSION");
+        estaActiva = false;
+    }
+
     private void SiguienteLinea()
     {
         if (index < lineas.Length - 1)
@@ -90,7 +135,7 @@ public class Radio : MonoBehaviour
         }
         else
         {
-            textComponent.text = "";
+            StartCoroutine(CerrarRadioConDelay());
         }
     }
 }

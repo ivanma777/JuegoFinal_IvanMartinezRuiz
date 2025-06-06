@@ -2279,6 +2279,155 @@ Transform:
   m_Children: []
   m_Father: {fileID: 748948261}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &686595921
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 686595922}
+  - component: {fileID: 686595923}
+  - component: {fileID: 686595924}
+  m_Layer: 2
+  m_Name: RadioSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &686595922
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686595921}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3075706129374362406}
+  m_Father: {fileID: 2092163445}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &686595923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686595921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9ecfbd974dcd0f418d77f348e360ca2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radioEvent: {fileID: 11400000, guid: d7ce9d840c16d0f449b2364e4074242e, type: 2}
+  radioAnsweredEvent: {fileID: 11400000, guid: 8bda9e03bb0af1a468e053861073e69e, type: 2}
+  audioSource: {fileID: 686595924}
+  textComponent: {fileID: 1365611644}
+  radioCanvas: {fileID: 703935810}
+  radioMaterial: {fileID: 2100000, guid: 1e7ce97cf3951b141a226ec8099ff821, type: 2}
+  radioObject: {fileID: 2442299829568266652}
+--- !u!82 &686595924
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686595921}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: cac3528ff664eeb48adb1eb5bf30f4ad, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &689371447
 GameObject:
   m_ObjectHideFlags: 0
@@ -2565,8 +2714,9 @@ MonoBehaviour:
   dayNight: {fileID: 808215875}
   radioSO: {fileID: 11400000, guid: c0af5f32890e2f04a9e01877cc94bd81, type: 2}
   trustSystem: {fileID: 1508510015}
+  radioAnsweredEvent: {fileID: 11400000, guid: 8bda9e03bb0af1a468e053861073e69e, type: 2}
+  radioEvent: {fileID: 11400000, guid: d7ce9d840c16d0f449b2364e4074242e, type: 2}
   mentalHealthEvent: {fileID: 11400000, guid: 05f882eebbba52a44b06a9b02c25197a, type: 2}
-  radioEvent: {fileID: 0}
   tiempoParaResponder: 5
   horasEntreAlarmas: 3
 --- !u!4 &727125484
@@ -3927,7 +4077,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.46977067, y: 0.11611593}
   m_AnchorMax: {x: 0.52350014, y: 0.21400002}
-  m_AnchoredPosition: {x: 0.6616974, y: 2.500061}
+  m_AnchoredPosition: {x: 0.6616974, y: 2.500122}
   m_SizeDelta: {x: -3, y: -6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &919029769
@@ -5249,7 +5399,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.7186054}
-  m_AnchoredPosition: {x: -1.7880859, y: 0.7519989}
+  m_AnchoredPosition: {x: -1.7880859, y: 0.75198364}
   m_SizeDelta: {x: 4, y: 2.2819996}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1362142742
@@ -5946,7 +6096,6 @@ GameObject:
   - component: {fileID: 1415576127}
   - component: {fileID: 1415576129}
   - component: {fileID: 1415576128}
-  - component: {fileID: 1415576130}
   m_Layer: 5
   m_Name: DialogueBox
   m_TagString: Untagged
@@ -6012,23 +6161,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415576126}
   m_CullTransparentMesh: 1
---- !u!114 &1415576130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1415576126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e96a1e3ec9aad64f8c7075f599ca9bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textComponent: {fileID: 1365611644}
-  lines:
-  - " Jhon,\xBFDo you copy?"
-  - '  Go to work'
-  textSpeed: 0.05
 --- !u!1 &1453870006
 GameObject:
   m_ObjectHideFlags: 0
@@ -9200,7 +9332,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 249666568}
-  - {fileID: 3075706129374362406}
+  - {fileID: 686595922}
   m_Father: {fileID: 1362508629}
   m_LocalEulerAnglesHint: {x: -9.656, y: 177.999, z: 1.319}
 --- !u!114 &2092163446
@@ -9728,7 +9860,6 @@ GameObject:
   - component: {fileID: 3075706129374362406}
   - component: {fileID: 2089883500358841475}
   - component: {fileID: 4243576884451229769}
-  - component: {fileID: 4243576884451229770}
   - component: {fileID: 4243576884451229771}
   m_Layer: 2
   m_Name: radio_low_poly
@@ -9745,12 +9876,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2442299829568266652}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.60590214, y: 0.22139904, z: 0.22681206, w: 0.7296722}
-  m_LocalPosition: {x: 1.885525, y: -0.40951654, z: 3.3243368}
+  m_LocalRotation: {x: -0.60590214, y: 0.22139902, z: 0.22681203, w: 0.72967213}
+  m_LocalPosition: {x: 1.8855319, y: -0.40951717, z: 3.324338}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2092163445}
+  m_Father: {fileID: 686595922}
   m_LocalEulerAnglesHint: {x: -79.949, y: 16.047, z: 381.056}
 --- !u!1 &3925086187867067709
 GameObject:
@@ -9854,23 +9985,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4243576884451229770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2442299829568266652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9ecfbd974dcd0f418d77f348e360ca2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radioEvent: {fileID: 0}
-  audioSource: {fileID: 0}
-  textComponent: {fileID: 0}
-  radioCanvas: {fileID: 703935810}
-  radioMaterial: {fileID: 0}
 --- !u!95 &4243576884451229771
 Animator:
   serializedVersion: 5

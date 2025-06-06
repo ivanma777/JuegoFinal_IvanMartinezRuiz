@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12cbb954d5f33a34dac96fbbb4e5e944, type: 3}
   m_Name: Alto
   m_EditorClassIdentifier: 
-  mensaje: alti
-  audioClip: {fileID: 0}
+  mensaje: "That was fast. You\u2019ve got a good head on your shoulders."
+  audioClip: {fileID: 8300000, guid: f22c14f2099529e4bb196c764cee90ec, type: 3}
