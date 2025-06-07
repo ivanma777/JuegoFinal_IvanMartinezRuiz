@@ -11,6 +11,7 @@ public class RadioManager : MonoBehaviour
     [SerializeField] private VoidEvent radioAnsweredEvent;
     [SerializeField] private RadioEvent radioEvent;
     [SerializeField] private MentalHealthEvent mentalHealthEvent;
+    private AudioSource audioSource;
 
     [Header("Configuración")]
     [SerializeField] private float tiempoParaResponder = 5f;
@@ -19,6 +20,12 @@ public class RadioManager : MonoBehaviour
     private bool alarmaActiva = false;
     private Coroutine cuentaRegresiva;
     private float ultimaHoraAlarma = -3f;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
 
     private void OnEnable()
     {
@@ -36,6 +43,7 @@ public class RadioManager : MonoBehaviour
         if ((horaActual >= ultimaHoraAlarma + horasEntreAlarmas) || (horaActual < ultimaHoraAlarma))
         {
             Debug.Log("envioAlarma");
+            audioSource.Play();
             ActivarAlarma(horaActual);
             //ultimaHoraAlarma = Mathf.Floor(horaActual / horasEntreAlarmas) * horasEntreAlarmas;
         }

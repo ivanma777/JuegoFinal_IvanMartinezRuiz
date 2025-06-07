@@ -22,6 +22,8 @@ public class Radio : MonoBehaviour
     private bool haRespondido = false;
     private bool radioSacada = false;
 
+    private AudioClip currentAudioClip;
+
     private void Awake()
     {
            
@@ -48,7 +50,9 @@ public class Radio : MonoBehaviour
             lineas = new string[] { respuesta.mensaje }; // puedes dividir en varias si deseas
             index = 0;
             textComponent.text = "";
-            ////audioSource.PlayOneShot(respuesta.audioClip);
+
+            currentAudioClip = respuesta.audioClip;
+
             //StartCoroutine(TypeLine());
 
             //radioCanvas.SetActive(true);
@@ -74,6 +78,7 @@ public class Radio : MonoBehaviour
             if (!haRespondido)
             {
                 StartCoroutine(TypeLine());
+                audioSource.PlayOneShot(currentAudioClip);
 
                 radioCanvas.SetActive(true);
                 radioMaterial.EnableKeyword("_EMISSION");
@@ -83,7 +88,7 @@ public class Radio : MonoBehaviour
             else
             {
                 // Apagar radio
-                ////audioSource.Stop();
+                audioSource.Stop();
                 radioCanvas.SetActive(false);
                 radioMaterial.DisableKeyword("_EMISSION");
                 estaActiva = false;
