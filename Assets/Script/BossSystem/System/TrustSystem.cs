@@ -8,13 +8,13 @@ public class TrustSystem : MonoBehaviour
 
     public static TrustSystem Instance { get; private set; }
 
-    [SerializeField] private int confianzaActual = 50;
-    [SerializeField] private int maxConfianza = 100;
-    [SerializeField] private int minConfianza = 0;
+    [SerializeField] private int currentConfidence = 100;
+    [SerializeField] private int maxConfidence = 200;
+    [SerializeField] private int minConfidence = 0;
 
     [SerializeField] private TrustEvent trustEvent;
 
-    public UnityEvent<int> onConfianzaActualizada;
+    public UnityEvent<int> onActualConfidence;
 
     private void Awake()
     {
@@ -30,9 +30,9 @@ public class TrustSystem : MonoBehaviour
 
     public void ModifyTrust(int cantidad)
     {
-        confianzaActual = Mathf.Clamp(confianzaActual + cantidad, minConfianza, maxConfianza);
-        onConfianzaActualizada?.Invoke(confianzaActual);
-        Debug.Log("Confianza actual: " + confianzaActual);
+        currentConfidence = Mathf.Clamp(currentConfidence + cantidad, minConfidence, maxConfidence);
+        onActualConfidence?.Invoke(currentConfidence);
+        Debug.Log("Confianza actual: " + currentConfidence);
     }
 
     private void OnEnable()
@@ -48,7 +48,7 @@ public class TrustSystem : MonoBehaviour
             trustEvent.UnRegister(ModifyTrust);
     }
 
-    public int getActualTrust() => confianzaActual;
+    public int getActualTrust() => currentConfidence;
 }
 
 

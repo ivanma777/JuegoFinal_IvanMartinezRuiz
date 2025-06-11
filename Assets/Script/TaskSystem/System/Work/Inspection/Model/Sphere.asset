@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45fd04b81226eb64f8a590d7e4c3ba59, type: 3}
   m_Name: Sphere
   m_EditorClassIdentifier: 
-  prefab: {fileID: 3705668548532023514, guid: e5785e206507e9242bbf49b550e3ae43, type: 3}
+  prefab: {fileID: 1417332427810269718, guid: 98aa8823a70eb6a4ea40683f25df7a1a, type: 3}
   referenceImage: {fileID: -2413806693520163455, guid: 22a11388698674b4183b0e04816583ed,
     type: 3}

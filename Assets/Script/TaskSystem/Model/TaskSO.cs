@@ -3,11 +3,11 @@ using UnityEngine;
 public abstract class TaskSO : ScriptableObject
 {
     [Header("Información general")]
-    public string titulo;
-    [TextArea] public string descripcion;
-    public string objetivo;
+    public string title;
+    [TextArea] public string description;
+    public string objetive;
 
     [Header("Resultado")]
-    public string recompensaTexto;
-    public string castigoTexto;
+    public string textReward;
+    public string TextFail;
 }

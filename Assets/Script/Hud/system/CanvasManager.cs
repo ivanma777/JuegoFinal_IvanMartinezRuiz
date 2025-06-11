@@ -18,7 +18,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private TMP_Text hudTextSearch;
 
     [Header("Temporizador")]
-    [SerializeField] private TMP_Text timerText;  // Asignar en inspector
+    [SerializeField] private TMP_Text timerText; 
     private float maxTime;
 
     private void Awake()
@@ -34,9 +34,9 @@ public class CanvasManager : MonoBehaviour
 
     public void ShowTask(TaskSO task)
     {
-        titleText.text = task.titulo;
-        descriptionText.text = task.descripcion;
-        objectiveText.text = task.objetivo;
+        titleText.text = task.title;
+        descriptionText.text = task.description;
+        objectiveText.text = task.objetive;
         resultText.text = "";
         timerText.text = "";
         timerText.gameObject.SetActive(false);
@@ -44,7 +44,7 @@ public class CanvasManager : MonoBehaviour
 
     public void ShowResult(bool success, TaskSO task)
     {
-        resultText.text = success ? task.recompensaTexto : task.castigoTexto;
+        resultText.text = success ? task.textReward : task.TextFail;
         timerText.gameObject.SetActive(false);
     }
 
@@ -58,18 +58,18 @@ public class CanvasManager : MonoBehaviour
         timerText.gameObject.SetActive(false);
     }
 
-    // NUEVOS MÉTODOS PARA EL TEMPORIZADOR
+   
 
     public void StartTimer(float duration)
     {
         maxTime = duration;
         timerText.gameObject.SetActive(true);
-        UpdateTimer(duration);  // Mostrar tiempo inicial
+        UpdateTimer(duration);  
     }
 
     public void UpdateTimer(float timeLeft)
     {
-        // Mostrar el tiempo restante redondeado al entero
+        
         timerText.text = Mathf.Ceil(timeLeft).ToString() + "s";
     }
 

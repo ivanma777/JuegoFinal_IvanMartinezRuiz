@@ -7,9 +7,9 @@ public class SistemaInteraccion : MonoBehaviour
     [SerializeField] private float maxDistance;
     private Camera cam;
 
-    private Transform interactuableActual;
+    private Transform currentInteraction;
 
-    public bool puertaAbierta;
+    public bool openDoor;
 
     // Start is called before the first frame update
     void Start()
@@ -19,28 +19,24 @@ public class SistemaInteraccion : MonoBehaviour
 
     private void Update()
     {
-        Deteccion();
+        Detection();
 
     }
 
-    
 
-    // Update is called once per frame
-
-
-    private void Deteccion()
+    private void Detection()
     {
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hitInfo, maxDistance))
         {
 
             if (hitInfo.transform.TryGetComponent(out PuertaContainer scriptCaja))
             {
-                interactuableActual = scriptCaja.transform;
+                currentInteraction = scriptCaja.transform;
                 scriptCaja.transform.GetComponent<Outline>().enabled = true;
                 CanvasManager.Instance.ShowInteraction();
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    if(puertaAbierta)
+                    if(openDoor)
                     {
                         scriptCaja.CerrarPuerta();
 
@@ -59,8 +55,8 @@ public class SistemaInteraccion : MonoBehaviour
 
             if (hitInfo.transform.TryGetComponent(out DirtSpot dirtSpot))
             {
-                interactuableActual = dirtSpot.transform;
-                dirtSpot.transform.GetComponent<Outline>().enabled = true; // si tiene outline opcional
+                currentInteraction = dirtSpot.transform;
+                dirtSpot.transform.GetComponent<Outline>().enabled = true; 
 
                 CanvasManager.Instance.ShowInteraction();
 
@@ -73,8 +69,8 @@ public class SistemaInteraccion : MonoBehaviour
             }
             if (hitInfo.transform.TryGetComponent(out PaperCollect paper))
             {
-                interactuableActual = paper.transform;
-                paper.transform.GetComponent<Outline>().enabled = true; // si tiene outline opcional
+                currentInteraction = paper.transform;
+                paper.transform.GetComponent<Outline>().enabled = true; 
 
                 CanvasManager.Instance.ShowInteraction();
 
@@ -89,11 +85,11 @@ public class SistemaInteraccion : MonoBehaviour
 
 
         }
-        else if (interactuableActual != null)
+        else if (currentInteraction != null)
         {
             CanvasManager.Instance.HideInteraction();
-            interactuableActual.GetComponent<Outline>().enabled = false;
-            interactuableActual = null;
+            currentInteraction.GetComponent<Outline>().enabled = false;
+            currentInteraction = null;
         }
     }
 }

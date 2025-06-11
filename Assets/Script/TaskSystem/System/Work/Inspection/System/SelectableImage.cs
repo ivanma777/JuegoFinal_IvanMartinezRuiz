@@ -5,51 +5,36 @@ using UnityEngine.UI;
 
 public class SelectableImage : MonoBehaviour
 {
-    //public Image image; 
-    //private bool selected = false; 
-
-    //public void ToggleSelect()
-    //{
-
-    //    selected = !selected;
-
-
-    //    GetComponent<Image>().color = selected ? Color.green : Color.grey;
-    //}
-
-    //public bool IsSelected() => selected; 
-
-    //public Sprite GetSprite() => image.sprite; 
 
 
     public Image image;
     private bool selected = false;
 
     private static int maxSeleccion = 3;
-    private static int totalSeleccionadas = 0;
+    private static int totalSelected = 0;
 
     public static void SetMaxSeleccion(int cantidad)
     {
         maxSeleccion = cantidad;
-        totalSeleccionadas = 0;
+        totalSelected = 0;
     }
 
     public void OnClick()
     {
         if (!selected)
         {
-            if (totalSeleccionadas >= maxSeleccion)
+            if (totalSelected >= maxSeleccion)
                 return;
 
             selected = true;
-            totalSeleccionadas++;
-            CambiarVisual(true);
+            totalSelected++;
+            ChangeVisual(true);
         }
         else
         {
             selected = false;
-            totalSeleccionadas--;
-            CambiarVisual(false);
+            totalSelected--;
+            ChangeVisual(false);
         }
     }
 
@@ -57,9 +42,9 @@ public class SelectableImage : MonoBehaviour
 
     public Sprite GetSprite() => image.sprite;
 
-    private void CambiarVisual(bool activo)
+    private void ChangeVisual(bool activo)
     {
-        // Cambia visualmente la selección: puedes usar un borde, color o escala
+       
         GetComponent<Image>().color = activo ? Color.green : Color.grey;
     }
 

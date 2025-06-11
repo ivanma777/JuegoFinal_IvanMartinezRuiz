@@ -16,7 +16,7 @@ public class PuertaContainer : MonoBehaviour
 
         anim.SetTrigger("Puerta1");
         anim.ResetTrigger("Puerta2");
-        sistemaInteraccion.puertaAbierta = true;
+        sistemaInteraccion.openDoor = true;
 
     }
     public void CerrarPuerta()
@@ -24,6 +24,6 @@ public class PuertaContainer : MonoBehaviour
 
         anim.SetTrigger("Puerta2");
         anim.ResetTrigger("Puerta1");
-        sistemaInteraccion.puertaAbierta = false;
+        sistemaInteraccion.openDoor = false;
     }
 }

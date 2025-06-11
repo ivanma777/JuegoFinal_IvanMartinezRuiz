@@ -45,10 +45,7 @@ public class MouseScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             panelAbierto = !panelAbierto;
-            //panelInspeccion.SetActive(panelAbierto);
-            //camara.puedeMoverCamara = !panelAbierto;
-
-            // Mostrar cursor
+           
             Cursor.lockState = panelAbierto ? CursorLockMode.Locked : CursorLockMode.None;
             Cursor.visible = !panelAbierto;
         }

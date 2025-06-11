@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0534a23d970cb4c498de8cb59184a2ba, type: 3}
   m_Name: CleaningTask
   m_EditorClassIdentifier: 
-  titulo: Cleaning
-  descripcion: Limpia las zonas sucias
-  objetivo: 'Objetivo: Limpiar'
-  recompensaTexto: Ole
-  castigoTexto: Mal
+  title: Limpiar
+  description: Limpia las diferentes zonas antes de que se acabe el tiempo
+  objetive: Limpia
+  textReward: Pass
+  TextFail: Fail
   timeLimit: 5
   numberOfDirtSpots: 1
-  dirtPrefab: {fileID: 6639303258319867820, guid: 476c6560a4aa0c54488c032706d22793,
+  dirtPrefab: {fileID: 2761939397738249527, guid: 965043aacad5d7e468a09a45afb4c6a3,
     type: 3}
   taskComplete: 0

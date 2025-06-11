@@ -8,7 +8,7 @@ public class AimCamera : MonoBehaviour
 
     [SerializeField] private Rango rango;
 
-    [SerializeField] private WorkManager workManager;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +27,7 @@ public class AimCamera : MonoBehaviour
             Quaternion targetOrientationQuaternion = Quaternion.LookRotation(targetOrientation);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetOrientationQuaternion, Time.deltaTime);
 
-            workManager.EstaTrabajando = true;
+            
 
         }
         

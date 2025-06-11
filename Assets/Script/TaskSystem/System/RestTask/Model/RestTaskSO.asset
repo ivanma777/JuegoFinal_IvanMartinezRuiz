@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c59500def6518845ab144ab614f6aa2, type: 3}
   m_Name: RestTaskSO
   m_EditorClassIdentifier: 
-  titulo: Descanso
-  descripcion: Tiempo libre, puedes descansar o investigar la zona
-  objetivo: 'Objetivo: Ninguno'
-  recompensaTexto: Toca volvel al laburar
-  castigoTexto: Toca volvel al laburar
+  title: Descanso
+  description: Tiempo libre. Puedes descansar en tu habitacion o investigar
+  objetive: 
+  textReward: Vuelve al trabajo
+  TextFail: Vuelve al trabajo
   taskName: Rest
   hoursToAdvance: 10
   mentalHealthRecovery: 5
-  active: 0
-  PaperPrefab: {fileID: 5220585500632195089, guid: a5177490d49e10240bd7193b5ad4ac7c,
+  active: 1
+  PaperPrefab: {fileID: 8091816017518842548, guid: 9c378f8d820e658468003ec37a356b8b,
     type: 3}
   totalPapers: 3

@@ -7,11 +7,11 @@ public class MentalHealthSystem : MonoBehaviour
 {
     public static MentalHealthSystem Instance { get; private set; }
 
-    [SerializeField] private int saludMentalActual = 50;
-    [SerializeField] private int maxSaludMental = 100;
-    [SerializeField] private int minSaludMental = 0;
+    [SerializeField] private int currentMentalHealth = 50;
+    [SerializeField] private int maxMentalHealth = 100;
+    [SerializeField] private int minMentalHealth = 0;
 
-    public UnityEvent<int> onSaludMentalActualizada;
+    public UnityEvent<int> onCurrentMentalHealth;
 
     [SerializeField] private MentalHealthEvent mentalHealthEvent;
 
@@ -29,9 +29,9 @@ public class MentalHealthSystem : MonoBehaviour
 
     public void ModifyMentalHealth(int cantidad)
     {
-        saludMentalActual = Mathf.Clamp(saludMentalActual + cantidad, minSaludMental, maxSaludMental);
-        onSaludMentalActualizada?.Invoke(saludMentalActual);
-        Debug.Log("Salud mental actual: " + saludMentalActual);
+        currentMentalHealth = Mathf.Clamp(currentMentalHealth + cantidad, minMentalHealth, maxMentalHealth);
+        onCurrentMentalHealth?.Invoke(currentMentalHealth);
+        Debug.Log("Salud mental actual: " + currentMentalHealth);
     }
 
 
@@ -55,5 +55,5 @@ public class MentalHealthSystem : MonoBehaviour
         ModifyMentalHealth(-5);
         Debug.Log("[MentalHealthTick] Salud mental reducida en 5 por el paso del tiempo.");
     }
-    public int GetActualMentalHealth() => saludMentalActual;
+    public int GetActualMentalHealth() => currentMentalHealth;
 }

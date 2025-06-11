@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class DayNight : MonoBehaviour
 {
-    [Range(0.0f, 24f)] public float hora = 12;
-    [SerializeField] private Transform sol;
+    [Range(0.0f, 24f)] public float hour = 12;
+    [SerializeField] private Transform sun;
 
-    [SerializeField] private float duracionDiaEnMin;
+    [SerializeField] private float dayDurationInMin;
 
-    private float solX;
+    private float Xsun;
     // Start is called before the first frame update
    
 
     // Update is called once per frame
     void Update()
     {
-        hora += Time.deltaTime * (24 / (60 * duracionDiaEnMin));
+        hour += Time.deltaTime * (24 / (60 * dayDurationInMin));
 
-        if (hora >= 24)
+        if (hour >= 24)
         {
-            hora = 0;
+            hour = 0;
 
         }
 
@@ -29,18 +29,18 @@ public class DayNight : MonoBehaviour
 
     void RotacionSol()
     {
-        solX = 15 * hora;
+        Xsun = 15 * hour;
 
-        sol.localEulerAngles = new Vector3(solX, 0, 0);
+        sun.localEulerAngles = new Vector3(Xsun, 0, 0);
 
-        if (hora < 6 || hora > 18)
+        if (hour < 6 || hour > 18)
         {
-            sol.GetComponent <Light>().intensity = 0;
+            sun.GetComponent <Light>().intensity = 0;
 
         }
         else
         {
-            sol.GetComponent<Light>().intensity = 1f;
+            sun.GetComponent<Light>().intensity = 1f;
         }
 
     }

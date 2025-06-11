@@ -14,12 +14,12 @@ public class RadioManager : MonoBehaviour
     private AudioSource audioSource;
 
     [Header("Configuración")]
-    [SerializeField] private float tiempoParaResponder = 5f;
-    [SerializeField] private float horasEntreAlarmas = 3f;
+    [SerializeField] private float timeToAnswer = 5f;
+    [SerializeField] private float timeBetweenAlarm = 3f;
 
-    private bool alarmaActiva = false;
-    private Coroutine cuentaRegresiva;
-    private float ultimaHoraAlarma = -3f;
+    private bool activeAlarm = false;
+    private Coroutine countDown;
+    private float lastHourAlarm = -3f;
 
     private void Awake()
     {
@@ -39,50 +39,50 @@ public class RadioManager : MonoBehaviour
 
     private void Update()
     {
-        float horaActual = dayNight.hora;
-        if ((horaActual >= ultimaHoraAlarma + horasEntreAlarmas) || (horaActual < ultimaHoraAlarma))
+        float horaActual = dayNight.hour;
+        if ((horaActual >= lastHourAlarm + timeBetweenAlarm) || (horaActual < lastHourAlarm))
         {
             Debug.Log("envioAlarma");
             audioSource.Play();
-            ActivarAlarma(horaActual);
+            ActiveAlarm(horaActual);
             //ultimaHoraAlarma = Mathf.Floor(horaActual / horasEntreAlarmas) * horasEntreAlarmas;
         }
     }
 
-    private void ActivarAlarma(float horaActual)
+    private void ActiveAlarm(float horaActual)
     {
-        if (alarmaActiva) return;
+        if (activeAlarm) return;
 
-        alarmaActiva = true;
-        ultimaHoraAlarma = Mathf.Floor(horaActual / horasEntreAlarmas) * horasEntreAlarmas;
+        activeAlarm = true;
+        lastHourAlarm = Mathf.Floor(horaActual / timeBetweenAlarm) * timeBetweenAlarm;
 
         int confianzaActual = trustSystem.getActualTrust();
-        RadioResponseSO respuesta = radioSO.ObtenerRespuestaPorConfianza(confianzaActual);
+        RadioResponseSO respuesta = radioSO.AnswerByTrust(confianzaActual);
 
         if (respuesta != null)
         {
             radioEvent.Raise(radioSO);
-            cuentaRegresiva = StartCoroutine(EsperarRespuesta());
+            countDown = StartCoroutine(WaitAnswer());
         }
     }
 
     private void OnRadioAnswered(Void _)
     {
-        if (!alarmaActiva) return;
+        if (!activeAlarm) return;
 
-        if (cuentaRegresiva != null)
+        if (countDown != null)
         {
-            StopCoroutine(cuentaRegresiva);
-            cuentaRegresiva = null;
+            StopCoroutine(countDown);
+            countDown = null;
         }
 
         trustSystem.ModifyTrust(+5);
         ResetAlarma();
     }
 
-    private IEnumerator EsperarRespuesta()
+    private IEnumerator WaitAnswer()
     {
-        yield return new WaitForSeconds(tiempoParaResponder);
+        yield return new WaitForSeconds(timeToAnswer);
 
         trustSystem.ModifyTrust(-5);
         mentalHealthEvent.Raise(-1);
@@ -91,11 +91,11 @@ public class RadioManager : MonoBehaviour
 
     private void ResetAlarma()
     {
-        if (cuentaRegresiva != null)
+        if (countDown != null)
         {
-            StopCoroutine(cuentaRegresiva);
-            cuentaRegresiva = null;
+            StopCoroutine(countDown);
+            countDown = null;
         }
-        alarmaActiva = false;
+        activeAlarm = false;
     }
 }

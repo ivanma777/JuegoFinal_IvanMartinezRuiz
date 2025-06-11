@@ -52,14 +52,14 @@ public class RestTaskSystem : MonoBehaviour
 
     private IEnumerator RestDurationCoroutine()
     {
-        float startHour = dayNight.hora;
+        float startHour = dayNight.hour;
         float waitTime = 5f;
         trigger.RestEventActive = true;
 
 
         while (true)
         {
-            float currentHour = dayNight.hora;
+            float currentHour = dayNight.hour;
 
             float elapsed = currentHour >= startHour
                 ? currentHour - startHour

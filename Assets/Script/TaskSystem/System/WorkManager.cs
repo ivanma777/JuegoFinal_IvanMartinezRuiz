@@ -35,7 +35,7 @@ public class WorkManager : MonoBehaviour
 
     void WorkFlow()
     {
-        if (dayNightManager.hora >= workHour && dayNightManager.hora <= restHour )
+        if (dayNightManager.hour >= workHour && dayNightManager.hour <= restHour )
         {
             timeToWork = true;
             timeToRest = false;

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45fd04b81226eb64f8a590d7e4c3ba59, type: 3}
   m_Name: Cilindre
   m_EditorClassIdentifier: 
-  prefab: {fileID: 8545555854651553423, guid: 5aec6b4c1737e4c4bba7a4d8de3184d8, type: 3}
+  prefab: {fileID: 4519012973478338028, guid: 3d56c3da38185f240bc8ec822b2b795c, type: 3}
   referenceImage: {fileID: -9095717837082945937, guid: 9873b054d42a5df468229633732c912b,
     type: 3}

@@ -18,9 +18,9 @@ public class Radio : MonoBehaviour
     private string[] lineas;
     private int index;
     private float textSpeed = 0.05f;
-    private bool estaActiva;
-    private bool haRespondido = false;
-    private bool radioSacada = false;
+    private bool isActive;
+    private bool hasAnswer = false;
+    private bool radioOut = false;
 
     private AudioClip currentAudioClip;
 
@@ -32,18 +32,18 @@ public class Radio : MonoBehaviour
 
     private void OnEnable()
     {
-        radioEvent.Register(OnRadioMensajeRecibido);
+        radioEvent.Register(OnMessageGet);
     }
 
     private void OnDisable()
     {
-        radioEvent.UnRegister(OnRadioMensajeRecibido);
+        radioEvent.UnRegister(OnMessageGet);
     }
 
-    private void OnRadioMensajeRecibido(RadioSO so)
+    private void OnMessageGet(RadioSO so)
     {
         Debug.Log("Llego alarma");
-        RadioResponseSO respuesta = so.ObtenerRespuestaPorConfianza(0);
+        RadioResponseSO respuesta = so.AnswerByTrust(0);
 
         if (respuesta != null)
         {
@@ -54,8 +54,8 @@ public class Radio : MonoBehaviour
             currentAudioClip = respuesta.audioClip;
 
            
-            estaActiva = true;
-            haRespondido = false;
+            isActive = true;
+            hasAnswer = false;
         }
     }
 
@@ -63,23 +63,23 @@ public class Radio : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            radioSacada = !radioSacada; 
+            radioOut = !radioOut; 
 
-            radioObject.SetActive(radioSacada);
-            radioCanvas.SetActive(radioSacada); 
-            radioMaterial.SetColor("_EmissionColor", radioSacada ? Color.white : Color.black);
+            radioObject.SetActive(radioOut);
+            radioCanvas.SetActive(radioOut); 
+            radioMaterial.SetColor("_EmissionColor", radioOut ? Color.white : Color.black);
         }
 
-        if (radioSacada && estaActiva && Input.GetKeyDown(KeyCode.R))
+        if (radioOut && isActive && Input.GetKeyDown(KeyCode.R))
         {
-            if (!haRespondido)
+            if (!hasAnswer)
             {
                 StartCoroutine(TypeLine());
                 audioSource.PlayOneShot(currentAudioClip);
 
                 radioCanvas.SetActive(true);
                 radioMaterial.EnableKeyword("_EMISSION");
-                haRespondido = true;
+                hasAnswer = true;
                 radioAnsweredEvent.Raise(new Void());
             }
             else
@@ -88,18 +88,18 @@ public class Radio : MonoBehaviour
                 audioSource.Stop();
                 radioCanvas.SetActive(false);
                 radioMaterial.DisableKeyword("_EMISSION");
-                estaActiva = false;
+                isActive = false;
                 textComponent.text = "";
             }
         }
 
-        if (radioSacada && estaActiva && Input.GetKeyDown(KeyCode.Space))
+        if (radioOut && isActive && Input.GetKeyDown(KeyCode.Space))
         {
             if (lineas == null || lineas.Length == 0) return;
 
             if (textComponent.text == lineas[index])
             {
-                SiguienteLinea();
+                NextLine();
             }
             else
             {
@@ -119,16 +119,16 @@ public class Radio : MonoBehaviour
         }
     }
 
-    private IEnumerator CerrarRadioConDelay()
+    private IEnumerator CloseDelay()
     {
         yield return new WaitForSeconds(1f);
         textComponent.text = "";
         radioCanvas.SetActive(false);
         radioMaterial.DisableKeyword("_EMISSION");
-        estaActiva = false;
+        isActive = false;
     }
 
-    private void SiguienteLinea()
+    private void NextLine()
     {
         if (index < lineas.Length - 1)
         {
@@ -137,7 +137,7 @@ public class Radio : MonoBehaviour
         }
         else
         {
-            StartCoroutine(CerrarRadioConDelay());
+            StartCoroutine(CloseDelay());
         }
     }
 }

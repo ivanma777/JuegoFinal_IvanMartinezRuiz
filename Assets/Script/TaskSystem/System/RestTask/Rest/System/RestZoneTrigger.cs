@@ -96,7 +96,7 @@ public class RestZoneTrigger : MonoBehaviour
         Time.timeScale = 1f;
 
         CanvasManager.Instance.SetScreen(false);
-        dayNight.hora += 2;
+        dayNight.hour += 2;
 
         currentTaskCoroutine = null;
 

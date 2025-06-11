@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45fd04b81226eb64f8a590d7e4c3ba59, type: 3}
   m_Name: Cube
   m_EditorClassIdentifier: 
-  prefab: {fileID: 7105165532289276298, guid: f9c993fc6d69ac048a0bdba3d4f7aadc, type: 3}
+  prefab: {fileID: 7030867365458405203, guid: 2358d780739036c45ac9a2ac5cc6617c, type: 3}
   referenceImage: {fileID: 7482667652216324306, guid: ce2b5718b7a993d499a12c4f10d5d982,
     type: 3}

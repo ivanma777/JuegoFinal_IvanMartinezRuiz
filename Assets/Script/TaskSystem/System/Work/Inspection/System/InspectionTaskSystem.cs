@@ -21,7 +21,7 @@ public class InspectionTaskSystem : MonoBehaviour
     [SerializeField] private MouseScript mouse;
 
     public GameObject panelInspeccion; // Asignar en el Inspector
-    private bool panelAbierto = false;
+    private bool openPanel = false;
 
 
     [Header("UI")]
@@ -44,8 +44,8 @@ public class InspectionTaskSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            panelAbierto = !panelAbierto;
-            panelInspeccion.SetActive(panelAbierto);
+            openPanel = !openPanel;
+            panelInspeccion.SetActive(openPanel);
 
         }
     }
@@ -220,8 +220,8 @@ public class InspectionTaskSystem : MonoBehaviour
 
         CanvasManager.Instance.HideInspection();
         CanvasManager.Instance.StopTimer();
-        panelAbierto = false;
-        panelInspeccion.SetActive(panelAbierto);
+        openPanel = false;
+        panelInspeccion.SetActive(openPanel);
         StopAllCoroutines();
         taskActive = false;
 

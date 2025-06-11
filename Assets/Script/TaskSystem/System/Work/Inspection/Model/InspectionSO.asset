@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 434c5a0027905854cbce04ecf3e7f712, type: 3}
   m_Name: InspectionSO
   m_EditorClassIdentifier: 
-  titulo: Inspection
-  descripcion: Inspeciona objetos y mira si se encuentra en la lista
-  objetivo: 'Objetivo: Comprobar lista'
-  recompensaTexto: ole
-  castigoTexto: mal
+  title: Inspeccion
+  description: Inspecciona el container y apunta la forma del objeto que sale
+  objetive: inspeccion
+  textReward: Pass
+  TextFail: Fail
   possibleItems:
   - {fileID: 11400000, guid: b2fbab54a3efc77488383841f8133307, type: 2}
   - {fileID: 11400000, guid: cdcf2698562f7284cb678ff2654a7261, type: 2}
