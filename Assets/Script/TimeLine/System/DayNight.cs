@@ -23,6 +23,7 @@ public class DayNight : MonoBehaviour
             hour = 0;
 
         }
+        UpdateAmbientLight();
 
         RotacionSol();
     }
@@ -44,4 +45,28 @@ public class DayNight : MonoBehaviour
         }
 
     }
+
+    void UpdateAmbientLight()
+    {
+        float targetAmbientIntensity;
+
+        if (hour >= 6f && hour <= 18f)
+        {
+          
+            float t = Mathf.InverseLerp(6f, 18f, hour);
+            targetAmbientIntensity = Mathf.Lerp(0.1f, 1f, t);
+        }
+        else
+        {
+            
+            float nightHour = hour < 6f ? hour + 24f : hour;
+            float t = Mathf.InverseLerp(18f, 30f, nightHour);
+            targetAmbientIntensity = Mathf.Lerp(1f, 0.1f, t);
+        }
+
+       
+        RenderSettings.ambientIntensity = Mathf.Lerp(RenderSettings.ambientIntensity, targetAmbientIntensity, Time.deltaTime * 2f);
+    }
+
+
 }

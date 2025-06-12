@@ -40,9 +40,9 @@ public class EventSystem : MonoBehaviour
         if (isTaskActive) return;
 
         int confidence = trustSystem.getActualTrust();
-        if (confidence <= 0)
+        if (confidence == 0)
         {
-           scene.Exit();
+           scene.Menu();
 
         }
 

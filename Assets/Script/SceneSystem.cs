@@ -81,6 +81,7 @@ public class SceneSystem : MonoBehaviour
     public void Menu()
     {
         Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene(0);
 
     }

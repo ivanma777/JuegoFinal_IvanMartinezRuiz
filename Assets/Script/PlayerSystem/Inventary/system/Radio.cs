@@ -93,7 +93,7 @@ public class Radio : MonoBehaviour
             }
         }
 
-        if (radioOut && isActive && Input.GetKeyDown(KeyCode.Space))
+        if (radioOut && isActive && Input.GetKeyDown(KeyCode.T))
         {
             if (lineas == null || lineas.Length == 0) return;
 
@@ -125,6 +125,7 @@ public class Radio : MonoBehaviour
         textComponent.text = "";
         radioCanvas.SetActive(false);
         radioMaterial.DisableKeyword("_EMISSION");
+        radioObject.SetActive(false);
         isActive = false;
     }
 
