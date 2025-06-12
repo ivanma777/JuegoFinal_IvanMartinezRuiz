@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: RestTaskSO
   m_EditorClassIdentifier: 
   title: Descanso
-  description: Tiempo libre. Puedes descansar en tu habitacion o investigar
+  description: Obten tres papeles a la izquierda del container o, si vas a los camarotes,
+    puedes descansar
   objetive: 
   textReward: Vuelve al trabajo
   TextFail: Vuelve al trabajo

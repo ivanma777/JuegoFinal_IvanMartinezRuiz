@@ -23,8 +23,8 @@ public class DayNight : MonoBehaviour
             hour = 0;
 
         }
-        UpdateAmbientLight();
-
+        //UpdateAmbientLight();
+        UpdateSkyboxExposure();
         RotacionSol();
     }
 
@@ -68,5 +68,24 @@ public class DayNight : MonoBehaviour
         RenderSettings.ambientIntensity = Mathf.Lerp(RenderSettings.ambientIntensity, targetAmbientIntensity, Time.deltaTime * 2f);
     }
 
+    void UpdateSkyboxExposure()
+    {
+        float targetExposure;
+
+        if (hour < 6 || hour > 18)
+        {
+            // De 18 a 6 baja progresivamente
+            float t = hour < 6 ? hour / 6f : (24 - hour) / 6f; // t entre 0 y 1
+            targetExposure = Mathf.Lerp(0.3f, 1.3f, t);
+        }
+        else
+        {
+            // De 6 a 18 sube progresivamente
+            float t = (hour - 6f) / 12f; // t entre 0 y 1
+            targetExposure = Mathf.Lerp(0.3f, 1.3f, t);
+        }
+
+        RenderSettings.skybox.SetFloat("_Exposure", targetExposure);
+    }
 
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CleaningTask
   m_EditorClassIdentifier: 
   title: Limpiar
-  description: Limpia las diferentes zonas antes de que se acabe el tiempo
+  description: Recoge la basura a la izquierda del container
   objetive: Limpia
   textReward: Pass
   TextFail: Fail

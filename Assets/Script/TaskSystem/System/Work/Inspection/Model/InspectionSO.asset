@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: InspectionSO
   m_EditorClassIdentifier: 
   title: Inspeccion
-  description: Inspecciona el container y apunta la forma del objeto que sale
+  description: Inspecciona el container y apunta las formas de los objetos que salen
   objetive: Inspeccion
   textReward: Pass
   TextFail: Fail
