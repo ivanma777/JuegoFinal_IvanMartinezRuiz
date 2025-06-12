@@ -9,6 +9,8 @@ public class EventSystem : MonoBehaviour
     [SerializeField] private InspectionTaskEvent inspectionTaskEvent;
     [SerializeField] private RestTaskEvent restTaskEvent;
     [SerializeField] private VoidEvent taskCompletedEvent;
+    [SerializeField] private TrustSystem trustSystem;
+    [SerializeField] private SceneSystem scene ;
 
     [Header("Tareas")]
     [SerializeField] private CleaningTaskSO cleaningTask;       
@@ -35,7 +37,17 @@ public class EventSystem : MonoBehaviour
 
     private void OnTimeToTriggerEvent()
     {
-        if (isTaskActive) return; 
+        if (isTaskActive) return;
+
+        int confidence = trustSystem.getActualTrust();
+        if (confidence <= 0)
+        {
+           scene.Exit();
+
+        }
+
+
+
 
         List<TaskType> availableTasks = new List<TaskType> { TaskType.Cleaning, TaskType.Inspection, TaskType.Rest };
         availableTasks.Remove(lastTask); 

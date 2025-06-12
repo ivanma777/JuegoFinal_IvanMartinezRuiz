@@ -17,9 +17,15 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private Animator RestScreenAnim;
     [SerializeField] private TMP_Text hudTextSearch;
 
+    [SerializeField] private GameObject pausePanel;
+    [SerializeField] private MouseScript mouseScript;
+
     [Header("Temporizador")]
     [SerializeField] private TMP_Text timerText; 
     private float maxTime;
+
+
+    private bool openPanel;
 
     private void Awake()
     {
@@ -30,6 +36,37 @@ public class CanvasManager : MonoBehaviour
         }
 
         Instance = this;
+    }
+
+    private void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            openPanel = !openPanel;
+            pausePanel.SetActive(openPanel);
+
+        }
+    }
+
+    public void Return()
+    {
+        openPanel = !openPanel;
+        pausePanel.SetActive(openPanel);
+        //if (mouseScript.PanelAbierto)
+        //{
+        //    Time.timeScale = 1f;
+        //    Cursor.lockState = CursorLockMode.None;
+        //    pausePanel.SetActive(false);
+        //    //mouseScript.PanelAbierto = false;
+        //}
+
+    }
+
+    private void PauseGame()
+    {
+
+
     }
 
     public void ShowTask(TaskSO task)

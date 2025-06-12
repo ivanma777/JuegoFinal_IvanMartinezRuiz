@@ -24,7 +24,7 @@ public class SceneSystem : MonoBehaviour
     [SerializeField] AudioSource audioEntrada;
 
 
-    [SerializeField] TrustSystem trust;
+    
 
     private int confianzaActual;
 
@@ -87,31 +87,10 @@ public class SceneSystem : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.M))
-        {
+       
+        
 
-            Pause();
-            Return();
-            if (pause)
-            {
-                pause = false;
-            }
-            else
-            {
-
-                pause = true;
-            }
-           
-        }
-        int confianza = trust.getActualTrust();
-
-        if (confianza == 0)
-        {
-
-            SceneManager.LoadScene(0);
-
-
-        }
+       
 
     }
 

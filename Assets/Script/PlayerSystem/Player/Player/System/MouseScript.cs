@@ -49,5 +49,25 @@ public class MouseScript : MonoBehaviour
             Cursor.lockState = panelAbierto ? CursorLockMode.Locked : CursorLockMode.None;
             Cursor.visible = !panelAbierto;
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            CallMouse();
+        }
+
+
+
     }
+
+
+    public void CallMouse()
+    {
+        panelAbierto = !panelAbierto;
+
+        Cursor.lockState = panelAbierto ? CursorLockMode.Locked : CursorLockMode.None;
+        Cursor.visible = !panelAbierto;
+
+    }
+
+
 }
